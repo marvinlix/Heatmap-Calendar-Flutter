@@ -111,7 +111,7 @@ class HeatMap extends StatefulWidget {
     this.endDate,
     this.textColor,
     this.size = 20,
-    this.fontSize,
+    this.fontSize = 10,
     this.onClick,
     this.margin,
     this.borderRadius,
@@ -130,15 +130,31 @@ class HeatMap extends StatefulWidget {
 }
 
 class _HeatMap extends State<HeatMap> {
+  final ScrollController scrollController = ScrollController();
+
   /// Put child into [SingleChildScrollView] so that user can scroll the widet horizontally.
   Widget _scrollableHeatMap(Widget child) {
     return widget.scrollable
         ? SingleChildScrollView(
+            controller: scrollController,
             reverse: true,
             scrollDirection: Axis.horizontal,
             child: child,
           )
         : child;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      DateTime now = DateTime.now();
+      DateTime endDate = widget.endDate ?? DateTime.now();
+
+      int days = endDate.difference(now).inDays;
+      scrollController.jumpTo(days / 7 * (widget.size ?? 20));
+    });
   }
 
   @override
@@ -149,8 +165,7 @@ class _HeatMap extends State<HeatMap> {
         // Heatmap Widget.
         _scrollableHeatMap(HeatMapPage(
           endDate: widget.endDate ?? DateTime.now(),
-          startDate: widget.startDate ??
-              DateUtil.oneYearBefore(widget.endDate ?? DateTime.now()),
+          startDate: widget.startDate ?? DateUtil.oneYearBefore(widget.endDate ?? DateTime.now()),
           colorMode: widget.colorMode,
           heatmapType: widget.heatmapType,
           size: widget.size,
@@ -179,5 +194,11 @@ class _HeatMap extends State<HeatMap> {
           ),
       ],
     );
+  }
+
+  @override
+  void dispose() {
+    scrollController.dispose();
+    super.dispose();
   }
 }

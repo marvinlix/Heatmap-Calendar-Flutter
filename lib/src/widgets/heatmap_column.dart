@@ -16,7 +16,12 @@ class HeatMapColumn extends StatelessWidget {
   /// The List widgets of empty [Container].
   ///
   /// It only processes when given week's length is not 7.
-  final List<Widget> emptySpace;
+  final List<Widget> preEmptySpace;
+
+  /// The List widgets of empty [Container].
+  ///
+  /// It only processes when given week's length is not 7.
+  final List<Widget> postEmptySpace;
 
   /// The date value of first day of given week.
   final DateTime startDate;
@@ -153,7 +158,17 @@ class HeatMapColumn extends StatelessWidget {
           ),
         ),
         // Fill emptySpace list only if given wek doesn't have 7 days.
-        emptySpace = (numDays != 7)
+        preEmptySpace = (numDays != 7) && startDate.weekday != 7
+            ? List.generate(
+          7 - numDays,
+              (i) => Container(
+              margin: margin ?? const EdgeInsets.all(2),
+              width: size ?? 42,
+              height: size ?? 42),
+        )
+            : [],
+        // Fill emptySpace list only if given wek doesn't have 7 days.
+        postEmptySpace = (numDays != 7) && endDate.weekday != 6
             ? List.generate(
                 7 - numDays,
                 (i) => Container(
@@ -167,7 +182,7 @@ class HeatMapColumn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: <Widget>[...dayContainers, ...emptySpace],
+      children: <Widget>[...preEmptySpace, ...dayContainers, ...postEmptySpace],
     );
   }
 }

@@ -9,8 +9,11 @@ class HeatmapChildrenData {
   final String desc;
 
   /// widget of the child
-  final Widget child;
+  final Widget? child;
 
-  HeatmapChildrenData({required this.label, required this.desc, required this.child});
+  /// background image url
+  final String? backgroundImage;
+
+  HeatmapChildrenData({required this.label, required this.desc, this.backgroundImage, this.child});
 
 }

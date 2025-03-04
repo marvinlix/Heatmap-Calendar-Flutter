@@ -111,13 +111,17 @@ class HeatMapPage extends StatelessWidget {
     // Create empty list.
     List<Widget> columns = [];
 
-    // Set cursor(position) to first day of weeks
-    // until cursor reaches the final week.
-    for (int datePos = 0 - (startDate.weekday % 7);
-        datePos <= _dateDifferent;
-        datePos += 7) {
-      // Get first day of week by adding cursor's value to startDate.
-      DateTime _firstDay = DateUtil.changeDay(startDate, datePos);
+    int offset = startDate.weekday % 7;
+    DateTime weekStart = startDate.subtract(Duration(days: offset));
+
+    while (weekStart.isBefore(endDate)) {
+      DateTime weekEnd = weekStart.add(const Duration(days: 6));
+
+      if (weekEnd.isAfter(endDate)) {
+        weekEnd = endDate;
+      }
+
+      DateTime realWeekStart = weekStart.isAfter(startDate) ? weekStart : startDate;
 
       columns.add(HeatMapColumn(
         // If last day is not saturday, week also includes future Date.
@@ -125,13 +129,11 @@ class HeatMapPage extends StatelessWidget {
         //
         // To make empty space to future day, we have to pass this HeatMapPage's
         // endDate to HeatMapColumn's endDate.
-        startDate: _firstDay,
-        endDate: datePos <= _dateDifferent - 7
-            ? DateUtil.changeDay(startDate, datePos + 6)
-            : endDate,
+        startDate: realWeekStart,
+        endDate: weekEnd,
         colorMode: colorMode,
         heatmapType: heatmapType,
-        numDays: min(endDate.difference(_firstDay).inDays + 1, 7),
+        numDays: min(weekEnd.difference(realWeekStart).inDays + 1, 7),
         size: size,
         fontSize: fontSize,
         defaultColor: defaultColor,
@@ -145,8 +147,9 @@ class HeatMapPage extends StatelessWidget {
         showText: showText,
       ));
 
-      // also add first day's month information to _firstDayInfos list.
-      _firstDayInfos.add(_firstDay.month);
+      _firstDayInfos.add(weekEnd.month);
+
+      weekStart = weekStart.add(const Duration(days: 7));
     }
 
     return columns;

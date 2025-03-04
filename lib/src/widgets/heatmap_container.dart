@@ -1,6 +1,8 @@
+import 'dart:io';
+
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:heatmap_calendar_flutter/heatmap_calendar_flutter.dart';
-import 'package:heatmap_calendar_flutter/src/data/children_item_datasets.dart';
 import '../data/heatmap_color.dart';
 
 class HeatMapContainer extends StatelessWidget {
@@ -35,6 +37,59 @@ class HeatMapContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final pixelRatio = MediaQuery.devicePixelRatioOf(context);
+
+    BoxDecoration buildBoxDecoration() {
+      BoxDecoration boxDecoration;
+
+      HeatmapChildrenData? heatmapChildrenData;
+      if (heatmapData != null && heatmapData?.heatMapChildren != null && heatmapData!.heatMapChildren!.isNotEmpty) {
+        heatmapChildrenData = heatmapData!.heatMapChildren!.firstWhereOrNull((ele) => ele.backgroundImage != null && ele.backgroundImage!.isNotEmpty);
+      }
+
+      print(heatmapChildrenData?.backgroundImage);
+
+      if (heatmapChildrenData != null) {
+        boxDecoration = BoxDecoration(
+          image: DecorationImage(
+              image: ResizeImage(
+                FileImage(File(heatmapChildrenData.backgroundImage!)),
+                width: (size! * pixelRatio).toInt(),
+              ),
+              fit: BoxFit.cover),
+          borderRadius: BorderRadius.all(Radius.circular(borderRadius ?? 5)),
+        );
+      } else {
+        boxDecoration = BoxDecoration(
+          color: heatmapType == HeatmapCalendarType.widgets ? Colors.transparent : selectedColor,
+          borderRadius: BorderRadius.all(Radius.circular(borderRadius ?? 5)),
+        );
+      }
+
+      return boxDecoration;
+    }
+
+    Widget? buildDayView() {
+      return (showText ?? true) || date.day == 1
+          ? (heatmapType == HeatmapCalendarType.widgets
+              ? Stack(
+                  children: [
+                    Center(
+                      child: Text(
+                        date.day.toString(),
+                        style: TextStyle(color: textColor ?? const Color(0xFF8A8A8A), fontSize: fontSize),
+                      ),
+                    ),
+                    _widgetsFromData(heatmapData),
+                  ],
+                )
+              : Text(
+                  date.day.toString(),
+                  style: TextStyle(color: textColor ?? const Color(0xFF8A8A8A), fontSize: fontSize),
+                ))
+          : null;
+    }
+
     return Padding(
       padding: margin ?? const EdgeInsets.all(2),
       child: GestureDetector(
@@ -49,74 +104,54 @@ class HeatMapContainer extends StatelessWidget {
             width: size,
             height: size,
             alignment: Alignment.center,
-            decoration: BoxDecoration(
-              color: heatmapType == HeatmapCalendarType.widgets ?Colors.transparent :selectedColor,
-              borderRadius:
-                  BorderRadius.all(Radius.circular(borderRadius ?? 5)),
-            ),
-            child: (showText ?? true) ? (
-            heatmapType == HeatmapCalendarType.widgets ?
-            Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _widgetsFromData(heatmapData),
-
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child:  Text(
-                    date.day.toString(),
-                    style: TextStyle(
-                        color: textColor ?? const Color(0xFF8A8A8A),
-                        fontSize: fontSize),
-                  ),
-                )
-              ],
-            ): Text(
-                    date.day.toString(),
-                    style: TextStyle(
-                        color: textColor ?? const Color(0xFF8A8A8A),
-                        fontSize: fontSize),
-                  )
-            )
-                : null,
+            decoration: buildBoxDecoration(),
+            child: buildDayView(),
           ),
         ),
         onTap: () {
-          onClick != null ? onClick!(date, heatmapData?? const HeatmapData()) : null;
+          onClick != null ? onClick!(date, heatmapData ?? const HeatmapData()) : null;
         },
       ),
     );
   }
 
-  _widgetsFromData(HeatmapData? heatmapData){
+  _widgetsFromData(HeatmapData? heatmapData) {
+    List<HeatmapChildrenData> heatMapChildren = [];
 
-    if(heatmapData != null && heatmapData.heatMapChildren != null && heatmapData.heatMapChildren!.isNotEmpty ) {
-      if(heatmapData.heatMapChildren!.length > 2){
-        return _overlappedUI(heatmapData);
+    if (heatmapData != null && heatmapData.heatMapChildren != null && heatmapData.heatMapChildren!.isNotEmpty) {
+      heatMapChildren = heatmapData.heatMapChildren!.nonNulls.toList();
+    }
+
+    if (heatMapChildren.isNotEmpty) {
+      if (heatMapChildren.length > 2) {
+        return _overlappedUI(heatMapChildren);
       }
 
-      if(heatmapData.heatMapChildren!.length == 1){
+      if (heatMapChildren.length == 1) {
         return SizedBox(
-          height: 20.0, width: 20.0, child: heatmapData.heatMapChildren![0].child,
+          height: 20.0,
+          width: 20.0,
+          child: heatMapChildren[0].child,
         );
       }
 
       return Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [... heatmapData.heatMapChildren!.map((childWidget) => childWidget.child).toList()
-        ],
+        children: [...heatMapChildren.map((childWidget) => childWidget.child).nonNulls.toList()],
       );
     }
 
     return const SizedBox();
   }
 
-  Widget _overlappedUI(HeatmapData heatmapData) {
+  Widget _overlappedUI(List<HeatmapChildrenData> heatMapChildren) {
     const overlap = 10.0;
-    final items = [... heatmapData.heatMapChildren!.map((childWidget) => childWidget.child).toList()
-    ];
+    final items = [...heatMapChildren.map((childWidget) => childWidget.child).nonNulls.toList()];
+
+    if (items.isEmpty) {
+      return const SizedBox();
+    }
 
     List<Widget> stackLayers = List<Widget>.generate(items.length, (index) {
       return Padding(
@@ -124,7 +159,6 @@ class HeatMapContainer extends StatelessWidget {
         child: items[index],
       );
     });
-
     return Stack(children: stackLayers);
   }
 }

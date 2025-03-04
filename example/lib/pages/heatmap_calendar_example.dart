@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:heatmap_calendar_flutter/heatmap_calendar_flutter.dart';
+import 'package:image_picker/image_picker.dart';
 
 class HeatMapCalendarExample extends StatefulWidget {
   const HeatMapCalendarExample({Key? key}) : super(key: key);
@@ -14,24 +15,65 @@ class HeatMapCalendarExample extends StatefulWidget {
 class _HeatMapCalendarExample extends State<HeatMapCalendarExample> {
   final TextEditingController dateController = TextEditingController();
   final TextEditingController heatLevelController = TextEditingController(text: "1");
+  final ImagePicker imagePicker = ImagePicker();
 
   bool isOpacityMode = true;
   bool isWidgetMode = true;
 
   Map<DateTime, HeatmapData> heatMapDatasets = {
-    DateTime(2024, 04, 01): HeatmapData(intensity: 1, heatMapChildren: [
-        HeatmapChildrenData(label: "label1", desc: "desc1", child: const Icon(Icons.fire_extinguisher, size: 20, color: Colors.amber,)),
-  ]),
-
-    DateTime(2024, 04, 05): HeatmapData(intensity: 1, heatMapChildren: [
-      HeatmapChildrenData(label: "label1", desc: "desc1", child: const Icon(Icons.fire_extinguisher, size: 20, color: Colors.amber,)),
-      HeatmapChildrenData(label: "label2", desc: "desc2", child: const Icon(Icons.water, size: 20, color: Colors.deepPurple,)),
+    DateTime(2025, 03, 01): HeatmapData(intensity: 1, heatMapChildren: [
+      HeatmapChildrenData(
+          label: "label1",
+          desc: "desc1",
+          child: const Icon(
+            Icons.fire_extinguisher,
+            size: 20,
+            color: Colors.red,
+          )),
     ]),
-
-    DateTime(2024, 04, 12): HeatmapData(intensity: 1, heatMapChildren: [
-      HeatmapChildrenData(label: "label1", desc: "desc1", child: const Icon(Icons.fire_extinguisher, size: 20, color: Colors.amber,)),
-      HeatmapChildrenData(label: "label2", desc: "desc2", child: const Icon(Icons.water, size: 20, color: Colors.deepPurple,)),
-      HeatmapChildrenData(label: "label3", desc: "desc3", child: const Icon(Icons.flood, size: 20, color: Colors.blue,)),
+    DateTime(2025, 03, 05): HeatmapData(intensity: 1, heatMapChildren: [
+      HeatmapChildrenData(
+          label: "label1",
+          desc: "desc1",
+          child: const Icon(
+            Icons.fire_extinguisher,
+            size: 20,
+            color: Colors.amber,
+          )),
+      HeatmapChildrenData(
+          label: "label2",
+          desc: "desc2",
+          child: const Icon(
+            Icons.water,
+            size: 20,
+            color: Colors.deepPurple,
+          )),
+    ]),
+    DateTime(2025, 03, 12): HeatmapData(intensity: 1, heatMapChildren: [
+      HeatmapChildrenData(
+          label: "label1",
+          desc: "desc1",
+          child: const Icon(
+            Icons.fire_extinguisher,
+            size: 20,
+            color: Colors.amber,
+          )),
+      HeatmapChildrenData(
+          label: "label2",
+          desc: "desc2",
+          child: const Icon(
+            Icons.water,
+            size: 20,
+            color: Colors.deepPurple,
+          )),
+      HeatmapChildrenData(
+          label: "label3",
+          desc: "desc3",
+          child: const Icon(
+            Icons.flood,
+            size: 20,
+            color: Colors.blue,
+          )),
     ]),
   };
 
@@ -48,10 +90,8 @@ class _HeatMapCalendarExample extends State<HeatMapCalendarExample> {
       child: TextField(
         controller: controller,
         decoration: InputDecoration(
-          enabledBorder: const OutlineInputBorder(
-              borderSide: BorderSide(color: Color(0xffe7e7e7), width: 1.0)),
-          focusedBorder: const OutlineInputBorder(
-              borderSide: BorderSide(color: Color(0xFF20bca4), width: 1.0)),
+          enabledBorder: const OutlineInputBorder(borderSide: BorderSide(color: Color(0xffe7e7e7), width: 1.0)),
+          focusedBorder: const OutlineInputBorder(borderSide: BorderSide(color: Color(0xFF20bca4), width: 1.0)),
           hintText: hint,
           hintStyle: const TextStyle(color: Colors.grey),
           isDense: true,
@@ -62,6 +102,25 @@ class _HeatMapCalendarExample extends State<HeatMapCalendarExample> {
 
   @override
   Widget build(BuildContext context) {
+    Future<void> pickImage() async {
+      final XFile? pickedFile = await imagePicker.pickImage(source: ImageSource.gallery);
+      if (pickedFile != null) {
+        setState(() {
+          heatMapDatasets[DateTime.parse(dateController.text)] = HeatmapData(intensity: int.parse(heatLevelController.text), heatMapChildren: [
+            HeatmapChildrenData(
+                label: "label1",
+                desc: "desc1",
+                backgroundImage: pickedFile.path,
+                child: const Icon(
+                  Icons.fire_extinguisher,
+                  size: 12,
+                  color: Colors.amber,
+                )),
+          ]);
+        });
+      }
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Heatmap Calendar'),
@@ -75,14 +134,13 @@ class _HeatMapCalendarExample extends State<HeatMapCalendarExample> {
                 elevation: 2,
                 child: Padding(
                   padding: const EdgeInsets.all(4),
-        
+
                   // HeatMapCalendar
                   child: HeatMapCalendar(
                     flexible: true,
                     datasets: heatMapDatasets,
                     heatmapType: isWidgetMode ? HeatmapCalendarType.widgets : HeatmapCalendarType.intensity,
-                    colorMode:
-                        isOpacityMode ? ColorMode.opacity : ColorMode.color,
+                    colorMode: isOpacityMode ? ColorMode.opacity : ColorMode.color,
                     colorsets: const {
                       1: Colors.red,
                       3: Colors.orange,
@@ -93,17 +151,42 @@ class _HeatMapCalendarExample extends State<HeatMapCalendarExample> {
                       13: Colors.purple,
                     },
                     heatmapWidgetLegends: [
-                      HeatmapChildrenData(label: "label1", desc: "desc1", child: const Icon(Icons.fire_extinguisher, size: 12, color: Colors.amber,)),
-                      HeatmapChildrenData(label: "label2", desc: "desc2", child: const Icon(Icons.water, size: 12, color: Colors.deepPurple,)),
-                      HeatmapChildrenData(label: "label3", desc: "desc3", child: const Icon(Icons.flood, size: 12, color: Colors.blue,)),
-                      HeatmapChildrenData(label: "label1", desc: "desc1", child: const Icon(Icons.fire_extinguisher, size: 12, color: Colors.amber,)),
+                      HeatmapChildrenData(
+                          label: "label1",
+                          desc: "desc1",
+                          child: const Icon(
+                            Icons.fire_extinguisher,
+                            size: 12,
+                            color: Colors.amber,
+                          )),
+                      HeatmapChildrenData(
+                          label: "label2",
+                          desc: "desc2",
+                          child: const Icon(
+                            Icons.water,
+                            size: 12,
+                            color: Colors.deepPurple,
+                          )),
+                      HeatmapChildrenData(
+                          label: "label3",
+                          desc: "desc3",
+                          child: const Icon(
+                            Icons.flood,
+                            size: 12,
+                            color: Colors.blue,
+                          )),
+                      HeatmapChildrenData(
+                          label: "label1",
+                          desc: "desc1",
+                          child: const Icon(
+                            Icons.fire_extinguisher,
+                            size: 12,
+                            color: Colors.amber,
+                          )),
                     ],
-
                     defaultColor: Colors.white,
-        
-                    onClick: (datetime, heatmapData){
-                      ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('$datetime : $heatmapData')));
+                    onClick: (datetime, heatmapData) {
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('$datetime : $heatmapData')));
                     },
                   ),
                 ),
@@ -111,16 +194,41 @@ class _HeatMapCalendarExample extends State<HeatMapCalendarExample> {
               _textField('YYYYMMDD', dateController),
               isWidgetMode ? const SizedBox() : _textField('Heat Level', heatLevelController),
               ElevatedButton(
+                child: const Text('IMAGE'),
+                onPressed: () {
+                  pickImage();
+                },
+              ),
+              ElevatedButton(
                 child: const Text('COMMIT'),
                 onPressed: () {
                   setState(() {
-                    heatMapDatasets[DateTime.parse(dateController.text)] =
-                        HeatmapData(intensity: int.parse(heatLevelController.text),
-                            heatMapChildren:[
-                              HeatmapChildrenData(label: "label1", desc: "desc1", child: const Icon(Icons.fire_extinguisher, size: 12, color: Colors.amber,)),
-                              HeatmapChildrenData(label: "label2", desc: "desc2", child: const Icon(Icons.water, size: 12, color: Colors.deepPurple,)),
-                              HeatmapChildrenData(label: "label3", desc: "desc3", child: const Icon(Icons.flood, size: 12, color: Colors.blue,)),
-                            ] );
+                    heatMapDatasets[DateTime.parse(dateController.text)] = HeatmapData(intensity: int.parse(heatLevelController.text), heatMapChildren: [
+                      HeatmapChildrenData(
+                          label: "label1",
+                          desc: "desc1",
+                          child: const Icon(
+                            Icons.fire_extinguisher,
+                            size: 12,
+                            color: Colors.amber,
+                          )),
+                      HeatmapChildrenData(
+                          label: "label2",
+                          desc: "desc2",
+                          child: const Icon(
+                            Icons.water,
+                            size: 12,
+                            color: Colors.deepPurple,
+                          )),
+                      HeatmapChildrenData(
+                          label: "label3",
+                          desc: "desc3",
+                          child: const Icon(
+                            Icons.flood,
+                            size: 12,
+                            color: Colors.blue,
+                          )),
+                    ]);
                   });
                 },
               ),
@@ -143,22 +251,23 @@ class _HeatMapCalendarExample extends State<HeatMapCalendarExample> {
               ),
 
               // ColorMode/OpacityMode Switch.
-              isWidgetMode ? const SizedBox() : Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  const Text('Color Mode'),
-                  CupertinoSwitch(
-                    value: isOpacityMode,
-                    onChanged: (value) {
-                      setState(() {
-                        isOpacityMode = value;
-                      });
-                    },
-                  ),
-                  const Text('Opacity Mode'),
-                ],
-              ),
-
+              isWidgetMode
+                  ? const SizedBox()
+                  : Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        const Text('Color Mode'),
+                        CupertinoSwitch(
+                          value: isOpacityMode,
+                          onChanged: (value) {
+                            setState(() {
+                              isOpacityMode = value;
+                            });
+                          },
+                        ),
+                        const Text('Opacity Mode'),
+                      ],
+                    ),
             ],
           ),
         ),

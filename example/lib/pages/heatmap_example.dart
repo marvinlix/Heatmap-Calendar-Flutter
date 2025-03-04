@@ -24,6 +24,14 @@ class _HeatMapExample extends State<HeatMapExample> {
     heatLevelController.dispose();
   }
 
+  /// Get start day of month.
+  static DateTime startDayOfYear(final DateTime referenceDate) =>
+      DateTime(referenceDate.year, 1, 1);
+
+  /// Get last day of month.
+  static DateTime endDayOfYear(final DateTime referenceDate) =>
+      DateTime(referenceDate.year, 12, 31);
+
   Widget _textField(final String hint, final TextEditingController controller) {
     return Padding(
       padding: const EdgeInsets.only(left: 16, right: 20, top: 8.0),
@@ -57,9 +65,10 @@ class _HeatMapExample extends State<HeatMapExample> {
               child: Padding(
                 padding: const EdgeInsets.all(20),
                 child: HeatMap(
+                  startDate: startDayOfYear(DateTime.now()),
+                  endDate: endDayOfYear(DateTime.now()),
                   scrollable: true,
-                  colorMode:
-                      isOpacityMode ? ColorMode.opacity : ColorMode.color,
+                  colorMode: isOpacityMode ? ColorMode.opacity : ColorMode.color,
                   datasets: heatMapDatasets,
                   colorsets: const {
                     1: Colors.red,

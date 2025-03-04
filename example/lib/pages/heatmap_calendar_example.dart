@@ -19,17 +19,17 @@ class _HeatMapCalendarExample extends State<HeatMapCalendarExample> {
   bool isWidgetMode = true;
 
   Map<DateTime, HeatmapData> heatMapDatasets = {
-    DateTime(2024, 04, 01): HeatmapData(intensity: 1, heatMapChildren: [
-        HeatmapChildrenData(label: "label1", desc: "desc1", child: const Icon(Icons.fire_extinguisher, size: 20, color: Colors.amber,)),
+    DateTime(2025, 03, 01): HeatmapData(intensity: 1, heatMapChildren: [
+        HeatmapChildrenData(label: "label1", desc: "desc1", backgroundImage: "assets/1.jpg", child: const Icon(Icons.fire_extinguisher, size: 20, color: Colors.red,)),
   ]),
 
-    DateTime(2024, 04, 05): HeatmapData(intensity: 1, heatMapChildren: [
+    DateTime(2025, 03, 05): HeatmapData(intensity: 1, heatMapChildren: [
       HeatmapChildrenData(label: "label1", desc: "desc1", child: const Icon(Icons.fire_extinguisher, size: 20, color: Colors.amber,)),
       HeatmapChildrenData(label: "label2", desc: "desc2", child: const Icon(Icons.water, size: 20, color: Colors.deepPurple,)),
     ]),
 
-    DateTime(2024, 04, 12): HeatmapData(intensity: 1, heatMapChildren: [
-      HeatmapChildrenData(label: "label1", desc: "desc1", child: const Icon(Icons.fire_extinguisher, size: 20, color: Colors.amber,)),
+    DateTime(2025, 03, 12): HeatmapData(intensity: 1, heatMapChildren: [
+      HeatmapChildrenData(label: "label1", desc: "desc1", backgroundImage: "assets/1.jpg", child: const Icon(Icons.fire_extinguisher, size: 20, color: Colors.amber,)),
       HeatmapChildrenData(label: "label2", desc: "desc2", child: const Icon(Icons.water, size: 20, color: Colors.deepPurple,)),
       HeatmapChildrenData(label: "label3", desc: "desc3", child: const Icon(Icons.flood, size: 20, color: Colors.blue,)),
     ]),

@@ -47,8 +47,6 @@ class HeatMapContainer extends StatelessWidget {
         heatmapChildrenData = heatmapData!.heatMapChildren!.firstWhereOrNull((ele) => ele.backgroundImage != null && ele.backgroundImage!.isNotEmpty);
       }
 
-      print(heatmapChildrenData?.backgroundImage);
-
       if (heatmapChildrenData != null) {
         boxDecoration = BoxDecoration(
           image: DecorationImage(

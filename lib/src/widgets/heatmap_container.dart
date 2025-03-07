@@ -19,7 +19,9 @@ class HeatMapContainer extends StatelessWidget {
   final bool? showText;
   final Function(DateTime dateTime, HeatmapData heatmapData)? onClick;
 
-  const HeatMapContainer({
+  final String? backgroundImage;
+
+  HeatMapContainer({
     Key? key,
     required this.date,
     required this.heatmapType,
@@ -33,7 +35,17 @@ class HeatMapContainer extends StatelessWidget {
     this.textColor,
     this.onClick,
     this.showText,
-  }) : super(key: key);
+  })  : backgroundImage = findFirstNonNullImagePath(heatmapData),
+        super(key: key);
+
+  static String? findFirstNonNullImagePath(HeatmapData? heatmapData) {
+    if (heatmapData == null || heatmapData.heatMapChildren == null || heatmapData.heatMapChildren!.isEmpty) {
+      return null;
+    }
+
+    HeatmapChildrenData? heatmapChildrenData = heatmapData.heatMapChildren!.firstWhereOrNull((ele) => ele.backgroundImage != null && ele.backgroundImage!.isNotEmpty);
+    return heatmapChildrenData?.backgroundImage;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,17 +53,11 @@ class HeatMapContainer extends StatelessWidget {
 
     BoxDecoration buildBoxDecoration() {
       BoxDecoration boxDecoration;
-
-      HeatmapChildrenData? heatmapChildrenData;
-      if (heatmapData != null && heatmapData?.heatMapChildren != null && heatmapData!.heatMapChildren!.isNotEmpty) {
-        heatmapChildrenData = heatmapData!.heatMapChildren!.firstWhereOrNull((ele) => ele.backgroundImage != null && ele.backgroundImage!.isNotEmpty);
-      }
-
-      if (heatmapChildrenData != null) {
+      if (backgroundImage != null) {
         boxDecoration = BoxDecoration(
           image: DecorationImage(
               image: ResizeImage(
-                FileImage(File(heatmapChildrenData.backgroundImage!)),
+                FileImage(File(backgroundImage!)),
                 width: (size! * pixelRatio).toInt(),
               ),
               fit: BoxFit.cover),
@@ -75,7 +81,7 @@ class HeatMapContainer extends StatelessWidget {
                     Center(
                       child: Text(
                         date.day.toString(),
-                        style: TextStyle(color: textColor ?? const Color(0xFF8A8A8A), fontSize: fontSize),
+                        style: TextStyle(color: textColor ?? ((backgroundImage != null) ? const Color(0xFFFFFFFF) : const Color(0xFF8A8A8A)), fontSize: fontSize),
                       ),
                     ),
                     _widgetsFromData(heatmapData),
@@ -83,7 +89,7 @@ class HeatMapContainer extends StatelessWidget {
                 )
               : Text(
                   date.day.toString(),
-                  style: TextStyle(color: textColor ?? const Color(0xFF8A8A8A), fontSize: fontSize),
+                  style: TextStyle(color: textColor ?? ((backgroundImage != null) ? const Color(0xFFFFFFFF) : const Color(0xFF8A8A8A)), fontSize: fontSize),
                 ))
           : null;
     }

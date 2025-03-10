@@ -16,4 +16,8 @@ class HeatmapChildrenData {
 
   HeatmapChildrenData({required this.label, required this.desc, this.backgroundImage, this.child});
 
+  @override
+  String toString() {
+    return 'HeatmapChildrenData{label: $label, desc: $desc, child: $child, backgroundImage: $backgroundImage}';
+  }
 }

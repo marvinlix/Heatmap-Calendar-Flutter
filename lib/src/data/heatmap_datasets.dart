@@ -10,7 +10,10 @@ class HeatmapData {
   ///The [heatMapChildren]  is used to show the multiple actions on the same date in the heatmap.
   final List<HeatmapChildrenData>? heatMapChildren;
 
-
+  @override
+  String toString() {
+    return 'HeatmapData{intensity: $intensity, heatMapChildren: $heatMapChildren}';
+  }
 }
 
 

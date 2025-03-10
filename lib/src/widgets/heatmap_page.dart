@@ -158,36 +158,20 @@ class HeatMapPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: <Widget>[
-        Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            // Show week labels to left side of heatmap.
-            HeatMapWeekText(
-              margin: margin,
-              fontSize: fontSize,
-              size: size,
-              fontColor: textColor,
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Show month labels to top of heatmap.
-                HeatMapMonthText(
-                  firstDayInfos: _firstDayInfos,
-                  margin: margin,
-                  fontSize: fontSize,
-                  fontColor: textColor,
-                  size: size,
-                ),
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // Show month labels to top of heatmap.
+        HeatMapMonthText(
+          firstDayInfos: _firstDayInfos,
+          margin: margin,
+          fontSize: fontSize,
+          fontColor: textColor,
+          size: size,
+        ),
 
-                // Heatmap itself.
-                Row(
-                  children: <Widget>[..._heatmapColumnList()],
-                ),
-              ],
-            ),
-          ],
+        // Heatmap itself.
+        Row(
+          children: <Widget>[..._heatmapColumnList()],
         ),
       ],
     );

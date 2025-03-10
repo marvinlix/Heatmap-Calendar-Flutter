@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:heatmap_calendar_flutter/src/data/heatmap_datasets.dart';
+import 'package:heatmap_calendar_flutter/src/widgets/heatmap_week_text.dart';
 import '../heatmap_calendar_flutter.dart';
 import './widgets/heatmap_page.dart';
 import './widgets/heatmap_color_tip.dart';
@@ -161,25 +162,36 @@ class _HeatMap extends State<HeatMap> {
   Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
-      children: <Widget>[
-        // Heatmap Widget.
-        _scrollableHeatMap(HeatMapPage(
-          endDate: widget.endDate ?? DateTime.now(),
-          startDate: widget.startDate ?? DateUtil.oneYearBefore(widget.endDate ?? DateTime.now()),
-          colorMode: widget.colorMode,
-          heatmapType: widget.heatmapType,
-          size: widget.size,
-          fontSize: widget.fontSize,
-          datasets: widget.datasets,
-          defaultColor: widget.defaultColor,
-          textColor: widget.textColor,
-          colorsets: widget.colorsets,
-          borderRadius: widget.borderRadius,
-          onClick: widget.onClick,
-          margin: widget.margin,
-          showText: widget.showText,
-        )),
-
+      children: [
+        Row(
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            HeatMapWeekText(
+              margin: widget.margin,
+              fontSize: widget.fontSize,
+              size: widget.size,
+              fontColor: widget.textColor,
+            ),
+            Expanded(
+              child: _scrollableHeatMap(HeatMapPage(
+                endDate: widget.endDate ?? DateTime.now(),
+                startDate: widget.startDate ?? DateUtil.oneYearBefore(widget.endDate ?? DateTime.now()),
+                colorMode: widget.colorMode,
+                heatmapType: widget.heatmapType,
+                size: widget.size,
+                fontSize: widget.fontSize,
+                datasets: widget.datasets,
+                defaultColor: widget.defaultColor,
+                textColor: widget.textColor,
+                colorsets: widget.colorsets,
+                borderRadius: widget.borderRadius,
+                onClick: widget.onClick,
+                margin: widget.margin,
+                showText: widget.showText,
+              )),
+            )
+          ],
+        ),
         // Show HeatMapColorTip if showColorTip is true.
         if (widget.showColorTip == true)
           HeatMapColorTip(

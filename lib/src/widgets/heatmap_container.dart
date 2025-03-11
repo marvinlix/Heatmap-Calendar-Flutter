@@ -81,7 +81,12 @@ class HeatMapContainer extends StatelessWidget {
                     Center(
                       child: Text(
                         date.day.toString(),
-                        style: TextStyle(color: textColor ?? ((backgroundImage != null) ? const Color(0xFFFFFFFF) : const Color(0xFF8A8A8A)), fontSize: fontSize),
+                        style: TextStyle(
+                            color: textColor ??
+                                ((backgroundImage != null || (selectedColor != null && heatmapType == HeatmapCalendarType.intensity))
+                                    ? const Color(0xFFFFFFFF)
+                                    : const Color(0xFF8A8A8A)),
+                            fontSize: fontSize),
                       ),
                     ),
                     _widgetsFromData(heatmapData),
@@ -89,7 +94,12 @@ class HeatMapContainer extends StatelessWidget {
                 )
               : Text(
                   date.day.toString(),
-                  style: TextStyle(color: textColor ?? ((backgroundImage != null) ? const Color(0xFFFFFFFF) : const Color(0xFF8A8A8A)), fontSize: fontSize),
+                  style: TextStyle(
+                      color: textColor ??
+                          ((backgroundImage != null || (selectedColor != null && heatmapType == HeatmapCalendarType.intensity))
+                              ? const Color(0xFFFFFFFF)
+                              : const Color(0xFF8A8A8A)),
+                      fontSize: fontSize),
                 ))
           : null;
     }

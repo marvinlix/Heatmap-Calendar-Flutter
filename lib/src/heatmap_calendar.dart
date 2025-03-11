@@ -128,10 +128,10 @@ class HeatMapCalendar extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _HeatMapCalendar();
+  State<StatefulWidget> createState() => HeatMapCalendarState();
 }
 
-class _HeatMapCalendar extends State<HeatMapCalendar> {
+class HeatMapCalendarState extends State<HeatMapCalendar> {
   // The DateTime value of first day of the current month.
   DateTime? _currentDate;
 
@@ -143,6 +143,13 @@ class _HeatMapCalendar extends State<HeatMapCalendar> {
       // today's month if widget.initDate is null.
       _currentDate =
           DateUtil.startDayOfMonth(widget.initDate ?? DateTime.now());
+    });
+  }
+
+  void updateHeatmapData(DateTime dateTime, HeatmapData heatmapData) {
+    setState(() {
+      DateTime beginDateTime = DateTime(dateTime.year, dateTime.month, dateTime.day);
+          widget.datasets?[beginDateTime] = heatmapData;
     });
   }
 

@@ -133,6 +133,13 @@ class HeatMap extends StatefulWidget {
 class HeatMapState extends State<HeatMap> {
   final ScrollController scrollController = ScrollController();
 
+  void updateHeatmapData(DateTime dateTime, HeatmapData heatmapData) {
+    setState(() {
+      DateTime beginDateTime = DateTime(dateTime.year, dateTime.month, dateTime.day);
+      widget.datasets?[beginDateTime] = heatmapData;
+    });
+  }
+
   /// Put child into [SingleChildScrollView] so that user can scroll the widet horizontally.
   Widget _scrollableHeatMap(Widget child) {
     return widget.scrollable

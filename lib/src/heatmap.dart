@@ -127,10 +127,10 @@ class HeatMap extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _HeatMap();
+  State<StatefulWidget> createState() => HeatMapState();
 }
 
-class _HeatMap extends State<HeatMap> {
+class HeatMapState extends State<HeatMap> {
   final ScrollController scrollController = ScrollController();
 
   /// Put child into [SingleChildScrollView] so that user can scroll the widet horizontally.

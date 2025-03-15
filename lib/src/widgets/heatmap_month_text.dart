@@ -80,8 +80,8 @@ class HeatMapMonthText extends StatelessWidget {
     return Text(
       text,
       style: TextStyle(
-        color: fontColor,
-        fontSize: fontSize,
+        color: fontColor ?? const Color(0xFF758EA1),
+        fontSize: fontSize ?? 9,
       ),
     );
   }

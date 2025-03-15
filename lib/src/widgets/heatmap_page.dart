@@ -87,6 +87,12 @@ class HeatMapPage extends StatelessWidget {
 
   final bool? showText;
 
+  /// The double value of week label's fontSize.
+  final double? monthFontSize;
+
+  /// The text color value of week labels.
+  final Color? monthTextColor;
+
   final HeatmapLocaleType locale;
 
   HeatMapPage({
@@ -105,6 +111,8 @@ class HeatMapPage extends StatelessWidget {
     this.onClick,
     this.margin,
     this.showText,
+    this.monthFontSize,
+    this.monthTextColor,
     this.locale = HeatmapLocaleType.en
   })  : _dateDifferent = endDate.difference(startDate).inDays,
         maxValue = DatasetsUtil.getMaxValue(datasets),
@@ -168,8 +176,8 @@ class HeatMapPage extends StatelessWidget {
         HeatMapMonthText(
           firstDayInfos: _firstDayInfos,
           margin: margin,
-          fontSize: fontSize,
-          fontColor: textColor,
+          fontSize: monthFontSize,
+          fontColor: monthTextColor,
           size: size,
           locale: locale,
         ),

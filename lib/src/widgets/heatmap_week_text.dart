@@ -12,8 +12,11 @@ class HeatMapWeekText extends StatelessWidget {
   /// The double value of every block's size to fit the height.
   final double? size;
 
-  /// The color value of every font's color.
-  final Color? fontColor;
+  /// The double value of week label's fontSize.
+  final double? weekFontSize;
+
+  /// The text color value of week labels.
+  final Color? weekTextColor;
 
   final HeatmapLocaleType locale;
 
@@ -22,7 +25,8 @@ class HeatMapWeekText extends StatelessWidget {
     this.margin,
     this.fontSize,
     this.size,
-    this.fontColor,
+    this.weekFontSize,
+    this.weekTextColor,
     this.locale = HeatmapLocaleType.en
   }) : super(key: key);
 
@@ -38,8 +42,8 @@ class HeatMapWeekText extends StatelessWidget {
             child: Text(
               label,
               style: TextStyle(
-                fontSize: fontSize ?? 12,
-                color: fontColor,
+                fontSize: weekFontSize ?? 9,
+                color: weekTextColor ?? const Color(0xFF758EA1),
               ),
             ),
           ),

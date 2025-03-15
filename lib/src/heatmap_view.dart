@@ -34,6 +34,12 @@ class HeatMapView extends StatelessWidget {
   /// The double value of every block's fontSize.
   final double? fontSize;
 
+  /// The double value of week label's fontSize.
+  final double? weekFontSize;
+
+  /// The text color value of week labels.
+  final Color? weekTextColor;
+
   /// The colorsets which give the color value for its thresholds key value.
   ///
   /// Be aware that first Color is the maximum value if [ColorMode] is [ColorMode.opacity].
@@ -124,6 +130,8 @@ class HeatMapView extends StatelessWidget {
       this.colorTipHelper,
       this.colorTipCount,
       this.colorTipSize,
+      this.weekFontSize,
+      this.weekTextColor,
       this.locale = HeatmapLocaleType.en})
       : super(key: key);
 
@@ -150,10 +158,10 @@ class HeatMapView extends StatelessWidget {
           mainAxisSize: MainAxisSize.max,
           children: [
             HeatMapWeekText(
-              margin: margin,
-              fontSize: fontSize,
               size: size,
-              fontColor: textColor,
+              margin: margin,
+              fontSize: weekFontSize,
+              weekTextColor: weekTextColor,
               locale: locale,
             ),
             Expanded(

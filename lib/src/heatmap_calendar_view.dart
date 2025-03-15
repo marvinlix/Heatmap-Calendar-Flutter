@@ -4,7 +4,6 @@ import './widgets/heatmap_calendar_page.dart';
 import './widgets/heatmap_color_tip.dart';
 import './utils/date_util.dart';
 import './utils/widget_util.dart';
-import 'enums/i18n_model.dart';
 
 class HeatMapCalendarView extends StatelessWidget {
   /// The datasets which fill blocks based on its value.

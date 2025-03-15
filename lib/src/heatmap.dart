@@ -6,6 +6,7 @@ import './widgets/heatmap_page.dart';
 import './widgets/heatmap_color_tip.dart';
 import './enums/heatmap_color_mode.dart';
 import './utils/date_util.dart';
+import 'enums/i18n_model.dart';
 
 class HeatMap extends StatefulWidget {
   /// The Date value of start day of heatmap.
@@ -102,6 +103,8 @@ class HeatMap extends StatefulWidget {
   /// The double value of [HeatMapColorTip]'s tip container's size.
   final double? colorTipSize;
 
+  final HeatmapLocaleType locale;
+
   const HeatMap({
     Key? key,
     required this.colorsets,
@@ -124,6 +127,7 @@ class HeatMap extends StatefulWidget {
     this.colorTipHelper,
     this.colorTipCount,
     this.colorTipSize,
+    this.locale = HeatmapLocaleType.en
   }) : super(key: key);
 
   @override
@@ -178,6 +182,7 @@ class HeatMapState extends State<HeatMap> {
               fontSize: widget.fontSize,
               size: widget.size,
               fontColor: widget.textColor,
+              locale: widget.locale,
             ),
             Expanded(
               child: _scrollableHeatMap(HeatMapPage(
@@ -195,6 +200,7 @@ class HeatMapState extends State<HeatMap> {
                 onClick: widget.onClick,
                 margin: widget.margin,
                 showText: widget.showText,
+                locale: widget.locale,
               )),
             )
           ],
@@ -210,6 +216,7 @@ class HeatMapState extends State<HeatMap> {
             rightWidget: widget.colorTipHelper?[1],
             containerCount: widget.colorTipCount,
             size: widget.colorTipSize,
+            locale: widget.locale,
           ),
       ],
     );

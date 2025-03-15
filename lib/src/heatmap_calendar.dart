@@ -5,6 +5,7 @@ import './widgets/heatmap_calendar_page.dart';
 import './widgets/heatmap_color_tip.dart';
 import './utils/date_util.dart';
 import './utils/widget_util.dart';
+import 'enums/i18n_model.dart';
 
 class HeatMapCalendar extends StatefulWidget {
   /// The datasets which fill blocks based on its value.
@@ -101,6 +102,8 @@ class HeatMapCalendar extends StatefulWidget {
   /// The double value of [HeatMapColorTip]'s tip container's size.
   final double? colorTipSize;
 
+  final HeatmapLocaleType locale;
+
   const HeatMapCalendar({
     Key? key,
     required this.colorsets,
@@ -125,6 +128,7 @@ class HeatMapCalendar extends StatefulWidget {
     this.colorTipHelper,
     this.colorTipCount,
     this.colorTipSize,
+    this.locale = HeatmapLocaleType.en
   }) : super(key: key);
 
   @override
@@ -177,7 +181,7 @@ class HeatMapCalendarState extends State<HeatMapCalendar> {
 
         // Text which shows the current year and month
         Text(
-          DateUtil.MONTH_LABEL[_currentDate?.month ?? 0] +
+          monthLabelInLocale(widget.locale)[_currentDate?.month ?? 0] +
               ' ' +
               (_currentDate?.year).toString(),
           style: TextStyle(
@@ -201,7 +205,7 @@ class HeatMapCalendarState extends State<HeatMapCalendar> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        for (String label in DateUtil.WEEK_LABEL.skip(1))
+        for (String label in weekLabelInLocale(widget.locale).skip(1))
           WidgetUtil.flexibleContainer(
             widget.flexible ?? false,
             false,
@@ -263,6 +267,7 @@ class HeatMapCalendarState extends State<HeatMapCalendar> {
               rightWidget: widget.colorTipHelper?[1],
               containerCount: widget.colorTipCount,
               size: widget.colorTipSize,
+              locale: widget.locale,
             ),
         ],
       ),

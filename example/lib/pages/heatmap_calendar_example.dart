@@ -137,6 +137,7 @@ class _HeatMapCalendarExample extends State<HeatMapCalendarExample> {
 
                   // HeatMapCalendar
                   child: HeatMapCalendar(
+                    locale: HeatmapLocaleType.zh,
                     flexible: true,
                     datasets: heatMapDatasets,
                     heatmapType: isWidgetMode ? HeatmapCalendarType.widgets : HeatmapCalendarType.intensity,

@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:heatmap_calendar_flutter/src/data/heatmap_datasets.dart';
+import 'package:heatmap_calendar_flutter/src/enums/i18n_model.dart';
 import '../../heatmap_calendar_flutter.dart';
 import './heatmap_month_text.dart';
 import './heatmap_column.dart';
@@ -86,6 +87,8 @@ class HeatMapPage extends StatelessWidget {
 
   final bool? showText;
 
+  final HeatmapLocaleType locale;
+
   HeatMapPage({
     Key? key,
     required this.colorMode,
@@ -102,6 +105,7 @@ class HeatMapPage extends StatelessWidget {
     this.onClick,
     this.margin,
     this.showText,
+    this.locale = HeatmapLocaleType.en
   })  : _dateDifferent = endDate.difference(startDate).inDays,
         maxValue = DatasetsUtil.getMaxValue(datasets),
         super(key: key);
@@ -167,6 +171,7 @@ class HeatMapPage extends StatelessWidget {
           fontSize: fontSize,
           fontColor: textColor,
           size: size,
+          locale: locale,
         ),
 
         // Heatmap itself.

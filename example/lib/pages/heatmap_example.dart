@@ -65,6 +65,7 @@ class _HeatMapExample extends State<HeatMapExample> {
               child: Padding(
                 padding: const EdgeInsets.all(20),
                 child: HeatMap(
+                  locale: HeatmapLocaleType.zh,
                   startDate: startDayOfYear(DateTime.now()),
                   endDate: endDayOfYear(DateTime.now()),
                   scrollable: true,

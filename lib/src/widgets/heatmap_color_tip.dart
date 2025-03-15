@@ -48,6 +48,8 @@ class HeatMapColorTip extends StatelessWidget {
   /// The double value of tip container's size.
   final double? size;
 
+  final HeatmapLocaleType locale;
+
   const HeatMapColorTip({
     Key? key,
     required this.colorMode,
@@ -58,6 +60,7 @@ class HeatMapColorTip extends StatelessWidget {
     this.rightWidget,
     this.containerCount,
     this.size,
+    this.locale = HeatmapLocaleType.en,
   }) : super(key: key);
 
   /// It returns the List of tip container.
@@ -149,9 +152,9 @@ class HeatMapColorTip extends StatelessWidget {
       child: heatmapType == HeatmapCalendarType.intensity? Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children:   <Widget>[
-          leftWidget ?? _defaultText('less'),
+          leftWidget ?? _defaultText(i18nObjInLocaleLookupString(locale, 'less')),
           ..._heatmapList(),
-          rightWidget ?? _defaultText('more'),
+          rightWidget ?? _defaultText(i18nObjInLocaleLookupString(locale, 'more')),
         ] ,
       ): _heatmapWidgetLegendList(),
     );

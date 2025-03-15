@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:heatmap_calendar_flutter/heatmap_calendar_flutter.dart';
-import 'package:heatmap_calendar_flutter/src/data/heatmap_datasets.dart';
-import '../enums/heatmap_color_mode.dart';
 import './heatmap_calendar_row.dart';
 import '../utils/date_util.dart';
 import '../utils/datasets_util.dart';

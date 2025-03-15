@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:heatmap_calendar_flutter/src/enums/i18n_model.dart';
 import '../utils/date_util.dart';
 
 class HeatMapMonthText extends StatelessWidget {
@@ -19,6 +20,8 @@ class HeatMapMonthText extends StatelessWidget {
   /// The margin value for correctly space between labels.
   final EdgeInsets? margin;
 
+  final HeatmapLocaleType locale;
+
   const HeatMapMonthText({
     Key? key,
     this.firstDayInfos,
@@ -26,6 +29,7 @@ class HeatMapMonthText extends StatelessWidget {
     this.fontColor,
     this.size,
     this.margin,
+    this.locale = HeatmapLocaleType.en
   }) : super(key: key);
 
   /// The list of every month labels and fitted space.
@@ -47,13 +51,12 @@ class HeatMapMonthText extends StatelessWidget {
         // Otherwise, add Text with width margin.
         items.add(
           firstDayInfos!.length == 1 || (label == 0 && firstDayInfos![label] != firstDayInfos![label + 1])
-              ? _renderText(DateUtil.SHORT_MONTH_LABEL[firstDayInfos![label]])
+              ? _renderText(shortMonthLabelInLocale(locale)[firstDayInfos![label]])
               : Container(
                   width: (((size ?? 20) + (margin?.right ?? 2)) * 2),
                   margin: EdgeInsets.only(
                       left: margin?.left ?? 2, right: margin?.right ?? 2),
-                  child: _renderText(
-                      DateUtil.SHORT_MONTH_LABEL[firstDayInfos![label]]),
+                  child: _renderText(shortMonthLabelInLocale(locale)[firstDayInfos![label]]),
                 ),
         );
       } else if (_write) {

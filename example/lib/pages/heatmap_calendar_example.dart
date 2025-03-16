@@ -151,6 +151,7 @@ class _HeatMapCalendarExample extends State<HeatMapCalendarExample> {
                       11: Colors.indigo,
                       13: Colors.purple,
                     },
+                    showBackgroundImage: true,
                     heatmapWidgetLegends: [
                       HeatmapChildrenData(
                           label: "label1",

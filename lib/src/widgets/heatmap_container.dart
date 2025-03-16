@@ -66,6 +66,7 @@ class HeatMapContainer extends StatelessWidget {
                 FileImage(File(backgroundImage!)),
                 width: (size! * pixelRatio).toInt(),
               ),
+              opacity: 0.8,
               fit: BoxFit.cover),
           borderRadius: BorderRadius.all(Radius.circular(borderRadius ?? 5)),
         );

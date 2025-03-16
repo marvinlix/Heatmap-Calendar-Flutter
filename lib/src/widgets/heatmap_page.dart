@@ -86,6 +86,7 @@ class HeatMapPage extends StatelessWidget {
   final Function(DateTime, HeatmapData)? onClick;
 
   final bool? showText;
+  final bool? showBackgroundImage;
 
   /// The double value of week label's fontSize.
   final double? monthFontSize;
@@ -111,6 +112,7 @@ class HeatMapPage extends StatelessWidget {
     this.onClick,
     this.margin,
     this.showText,
+    this.showBackgroundImage = false,
     this.monthFontSize,
     this.monthTextColor,
     this.locale = HeatmapLocaleType.en
@@ -157,6 +159,7 @@ class HeatMapPage extends StatelessWidget {
         onClick: onClick,
         datasets: datasets,
         showText: showText,
+        showBackgroundImage: showBackgroundImage,
       ));
 
       _firstDayInfos.add(weekEnd.month);

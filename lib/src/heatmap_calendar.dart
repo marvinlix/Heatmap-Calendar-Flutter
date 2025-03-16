@@ -104,6 +104,8 @@ class HeatMapCalendar extends StatefulWidget {
 
   final HeatmapLocaleType locale;
 
+  final bool? showBackgroundImage;
+
   const HeatMapCalendar({
     Key? key,
     required this.colorsets,
@@ -128,6 +130,7 @@ class HeatMapCalendar extends StatefulWidget {
     this.colorTipHelper,
     this.colorTipCount,
     this.colorTipSize,
+    this.showBackgroundImage = false,
     this.locale = HeatmapLocaleType.en
   }) : super(key: key);
 
@@ -256,6 +259,7 @@ class HeatMapCalendarState extends State<HeatMapCalendar> {
             colorsets: widget.colorsets,
             borderRadius: widget.borderRadius,
             onClick: widget.onClick,
+            showBackgroundImage: widget.showBackgroundImage,
           ),
           if (widget.showColorTip == true)
             HeatMapColorTip(

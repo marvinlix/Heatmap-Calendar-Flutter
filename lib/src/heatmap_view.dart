@@ -83,6 +83,8 @@ class HeatMapView extends StatelessWidget {
   /// Default value is false.
   final bool? showText;
 
+  final bool? showBackgroundImage;
+
   /// Show color tip which represents the color range at the below.
   ///
   /// Default value is true.
@@ -125,6 +127,7 @@ class HeatMapView extends StatelessWidget {
       this.datasets,
       this.defaultColor,
       this.showText = false,
+      this.showBackgroundImage = false,
       this.showColorTip = true,
       this.scrollable = false,
       this.colorTipHelper,
@@ -180,6 +183,7 @@ class HeatMapView extends StatelessWidget {
                 onClick: onClick,
                 margin: margin,
                 showText: showText,
+                showBackgroundImage: showBackgroundImage,
                 locale: locale,
               )),
             )

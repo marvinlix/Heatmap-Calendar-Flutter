@@ -108,6 +108,8 @@ class HeatMapCalendarView extends StatelessWidget {
 
   final Function(int direction)? onChangeMonth;
 
+  final bool? showBackgroundImage;
+
   HeatMapCalendarView(
       {Key? key,
       required this.colorsets,
@@ -134,6 +136,7 @@ class HeatMapCalendarView extends StatelessWidget {
       this.colorTipCount,
       this.colorTipSize,
       this.onChangeMonth,
+      this.showBackgroundImage = false,
       this.locale = HeatmapLocaleType.en})
       : _currentDate = DateUtil.startDayOfMonth(initDate ?? DateTime.now()),
         super(key: key);
@@ -229,6 +232,7 @@ class HeatMapCalendarView extends StatelessWidget {
             colorsets: colorsets,
             borderRadius: borderRadius,
             onClick: onClick,
+            showBackgroundImage: showBackgroundImage,
           ),
           if (showColorTip == true)
             HeatMapColorTip(

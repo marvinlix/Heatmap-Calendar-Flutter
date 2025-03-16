@@ -69,6 +69,7 @@ class HeatMapCalendarRow extends StatelessWidget {
 
   /// The integer value of the maximum value for the highest value of the month.
   final int? maxValue;
+  final bool? showBackgroundImage;
 
   /// Function that will be called when a block is clicked.
   ///
@@ -92,6 +93,7 @@ class HeatMapCalendarRow extends StatelessWidget {
     this.datasets,
     this.maxValue,
     this.onClick,
+    this.showBackgroundImage = false,
   })  : dayContainers = List<Widget>.generate(
           7,
           // If current week has first day of the month and
@@ -127,6 +129,7 @@ class HeatMapCalendarRow extends StatelessWidget {
                   borderRadius: borderRadius,
                   margin: margin,
                   onClick: onClick,
+                  showBackgroundImage: showBackgroundImage,
                   // If datasets has DateTime key which is equal to this HeatMapContainer's date,
                   // we have to color the matched HeatMapContainer.
                   //

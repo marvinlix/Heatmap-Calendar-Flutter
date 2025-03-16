@@ -17,6 +17,7 @@ class HeatMapContainer extends StatelessWidget {
   final Color? textColor;
   final EdgeInsets? margin;
   final bool? showText;
+  final bool? showBackgroundImage;
   final Function(DateTime dateTime, HeatmapData heatmapData)? onClick;
 
   final String? backgroundImage;
@@ -35,16 +36,21 @@ class HeatMapContainer extends StatelessWidget {
     this.textColor,
     this.onClick,
     this.showText,
-  })  : backgroundImage = findFirstNonNullImagePath(heatmapData),
+    this.showBackgroundImage = false,
+  })  : backgroundImage = findFirstNonNullImagePath(heatmapData, showBackgroundImage),
         super(key: key);
 
-  static String? findFirstNonNullImagePath(HeatmapData? heatmapData) {
+  static String? findFirstNonNullImagePath(HeatmapData? heatmapData, bool? showBackgroundImage) {
     if (heatmapData == null || heatmapData.heatMapChildren == null || heatmapData.heatMapChildren!.isEmpty) {
       return null;
     }
 
-    HeatmapChildrenData? heatmapChildrenData = heatmapData.heatMapChildren!.firstWhereOrNull((ele) => ele.backgroundImage != null && ele.backgroundImage!.isNotEmpty);
-    return heatmapChildrenData?.backgroundImage;
+    if (showBackgroundImage ?? false) {
+      HeatmapChildrenData? heatmapChildrenData = heatmapData.heatMapChildren!.firstWhereOrNull((ele) => ele.backgroundImage != null && ele.backgroundImage!.isNotEmpty);
+      return heatmapChildrenData?.backgroundImage;
+    }
+
+    return null;
   }
 
   @override

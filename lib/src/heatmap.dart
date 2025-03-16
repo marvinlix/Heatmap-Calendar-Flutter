@@ -85,6 +85,7 @@ class HeatMap extends StatefulWidget {
   ///
   /// Default value is false.
   final bool? showText;
+  final bool? showBackgroundImage;
 
   /// Show color tip which represents the color range at the below.
   ///
@@ -128,6 +129,7 @@ class HeatMap extends StatefulWidget {
     this.datasets,
     this.defaultColor,
     this.showText = false,
+    this.showBackgroundImage = false,
     this.showColorTip = true,
     this.scrollable = false,
     this.colorTipHelper,
@@ -208,6 +210,7 @@ class HeatMapState extends State<HeatMap> {
                 onClick: widget.onClick,
                 margin: widget.margin,
                 showText: widget.showText,
+                showBackgroundImage: widget.showBackgroundImage,
                 locale: widget.locale,
               )),
             )

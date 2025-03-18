@@ -8,7 +8,7 @@ class WidgetUtil {
         ? Expanded(
             child: isSquare
                 ? AspectRatio(
-                    aspectRatio: heatmapType == HeatmapCalendarType.intensity ? 1 : 0.5,
+                    aspectRatio: heatmapType == HeatmapCalendarType.intensity ? 1 : 0.7,
                     child: child,
                   )
                 : child,

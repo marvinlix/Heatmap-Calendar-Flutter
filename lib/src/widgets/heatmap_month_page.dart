@@ -156,6 +156,7 @@ class HeatMapMonthPage extends StatelessWidget {
         datasets: datasets,
         flexible: true,
         showBackgroundImage: showBackgroundImage,
+        locale: locale,
       ));
 
       firstDate = DateTime(lastDate.year, lastDate.month, lastDate.day + 1);

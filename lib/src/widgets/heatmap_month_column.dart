@@ -148,11 +148,13 @@ class HeatMapMonthColumn extends StatelessWidget {
         Container(
           width: size ?? 20,
           margin: margin ?? const EdgeInsets.all(2.0),
-          child: Text(
-            shortMonthLabelInLocale(locale)[startDate.month],
-            style: TextStyle(
-              fontSize: weekFontSize ?? 9,
-              color: weekTextColor ?? const Color(0xFF758EA1),
+          child: Center(
+            child: Text(
+              shortMonthLabelInLocale(locale)[startDate.month],
+              style: TextStyle(
+                fontSize: weekFontSize ?? 9,
+                color: weekTextColor ?? const Color(0xFF758EA1),
+              ),
             ),
           ),
         ),

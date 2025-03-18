@@ -219,7 +219,7 @@ class HeatMapCalendarState extends State<HeatMapCalendar> {
                   ),
                 ),
               ),
-              HeatmapCalendarType.intensity),
+              widget.heatmapType == HeatmapCalendarType.intensity ? 1 : 0.7),
       ],
     );
   }

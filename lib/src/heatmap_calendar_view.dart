@@ -198,7 +198,7 @@ class HeatMapCalendarView extends StatelessWidget {
                 ),
               ),
             ),
-            heatmapType
+            heatmapType == HeatmapCalendarType.intensity ? 1 : 0.7
           ),
       ],
     );

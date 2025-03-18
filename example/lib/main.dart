@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'pages/heatmap_calendar_example.dart';
 import 'pages/heatmap_example.dart';
+import 'pages/heatmap_example_v2.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
         '/': (context) => const MyHomePage(),
         '/heatmap_calendar': (context) => const HeatMapCalendarExample(),
         '/heatmap': (context) => const HeatMapExample(),
+        '/heatmapV2': (context) => const HeatMapExampleV2(),
       },
     );
   }
@@ -49,6 +51,10 @@ class _MyHomePageState extends State<MyHomePage> {
             ListTile(
               title: const Text('Heatmap'),
               onTap: () => Navigator.of(context).pushNamed('/heatmap'),
+            ),
+            ListTile(
+              title: const Text('HeatmapV2'),
+              onTap: () => Navigator.of(context).pushNamed('/heatmapV2'),
             ),
           ],
         ),

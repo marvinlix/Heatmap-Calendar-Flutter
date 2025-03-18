@@ -61,7 +61,6 @@ class HeatMapCalendar extends StatefulWidget {
   /// Default value is [ColorMode.opacity].
   final ColorMode colorMode;
 
-
   /// HeatmapCalendarType changes the UI mode of blocks.
   ///
   /// [HeatmapCalendarType.intensity] requires just the intensity value to change the color
@@ -106,33 +105,33 @@ class HeatMapCalendar extends StatefulWidget {
 
   final bool? showBackgroundImage;
 
-  const HeatMapCalendar({
-    Key? key,
-    required this.colorsets,
-    this.colorMode = ColorMode.opacity,
-    this.heatmapType = HeatmapCalendarType.intensity,
-    this.heatmapWidgetLegends,
-    this.defaultColor,
-    this.datasets,
-    this.initDate,
-    this.size = 42,
-    this.fontSize,
-    this.monthFontSize,
-    this.textColor,
-    this.weekFontSize,
-    this.weekTextColor,
-    this.borderRadius,
-    this.flexible = false,
-    this.margin,
-    this.onClick,
-    this.onMonthChange,
-    this.showColorTip = true,
-    this.colorTipHelper,
-    this.colorTipCount,
-    this.colorTipSize,
-    this.showBackgroundImage = false,
-    this.locale = HeatmapLocaleType.en
-  }) : super(key: key);
+  const HeatMapCalendar(
+      {Key? key,
+      required this.colorsets,
+      this.colorMode = ColorMode.opacity,
+      this.heatmapType = HeatmapCalendarType.intensity,
+      this.heatmapWidgetLegends,
+      this.defaultColor,
+      this.datasets,
+      this.initDate,
+      this.size = 42,
+      this.fontSize,
+      this.monthFontSize,
+      this.textColor,
+      this.weekFontSize,
+      this.weekTextColor,
+      this.borderRadius,
+      this.flexible = false,
+      this.margin,
+      this.onClick,
+      this.onMonthChange,
+      this.showColorTip = true,
+      this.colorTipHelper,
+      this.colorTipCount,
+      this.colorTipSize,
+      this.showBackgroundImage = false,
+      this.locale = HeatmapLocaleType.en})
+      : super(key: key);
 
   @override
   State<StatefulWidget> createState() => HeatMapCalendarState();
@@ -148,22 +147,20 @@ class HeatMapCalendarState extends State<HeatMapCalendar> {
     setState(() {
       // Set _currentDate value to first day of initialized date or
       // today's month if widget.initDate is null.
-      _currentDate =
-          DateUtil.startDayOfMonth(widget.initDate ?? DateTime.now());
+      _currentDate = DateUtil.startDayOfMonth(widget.initDate ?? DateTime.now());
     });
   }
 
   void updateHeatmapData(DateTime dateTime, HeatmapData heatmapData) {
     setState(() {
       DateTime beginDateTime = DateTime(dateTime.year, dateTime.month, dateTime.day);
-          widget.datasets?[beginDateTime] = heatmapData;
+      widget.datasets?[beginDateTime] = heatmapData;
     });
   }
 
   void changeMonth(int direction) {
     setState(() {
-      _currentDate =
-          DateUtil.changeMonth(_currentDate ?? DateTime.now(), direction);
+      _currentDate = DateUtil.changeMonth(_currentDate ?? DateTime.now(), direction);
     });
     if (widget.onMonthChange != null) widget.onMonthChange!(_currentDate!);
   }
@@ -184,9 +181,7 @@ class HeatMapCalendarState extends State<HeatMapCalendar> {
 
         // Text which shows the current year and month
         Text(
-          monthLabelInLocale(widget.locale)[_currentDate?.month ?? 0] +
-              ' ' +
-              (_currentDate?.year).toString(),
+          monthLabelInLocale(widget.locale)[_currentDate?.month ?? 0] + ' ' + (_currentDate?.year).toString(),
           style: TextStyle(
             fontSize: widget.monthFontSize ?? 12,
           ),
@@ -210,23 +205,21 @@ class HeatMapCalendarState extends State<HeatMapCalendar> {
       children: <Widget>[
         for (String label in weekLabelInLocale(widget.locale).skip(1))
           WidgetUtil.flexibleContainer(
-            widget.flexible ?? false,
-            false,
-            Container(
-              margin: EdgeInsets.only(
-                  left: widget.margin?.left ?? 2,
-                  right: widget.margin?.right ?? 2),
-              width: widget.size ?? 42,
-              alignment: Alignment.center,
-              child: Text(
-                label,
-                style: TextStyle(
-                  fontSize: widget.weekFontSize ?? 12,
-                  color: widget.weekTextColor ?? const Color(0xFF758EA1),
+              widget.flexible ?? false,
+              false,
+              Container(
+                margin: EdgeInsets.only(left: widget.margin?.left ?? 2, right: widget.margin?.right ?? 2),
+                width: widget.size ?? 42,
+                alignment: Alignment.center,
+                child: Text(
+                  label,
+                  style: TextStyle(
+                    fontSize: widget.weekFontSize ?? 12,
+                    color: widget.weekTextColor ?? const Color(0xFF758EA1),
+                  ),
                 ),
               ),
-            ),
-          ),
+              HeatmapCalendarType.intensity),
       ],
     );
   }

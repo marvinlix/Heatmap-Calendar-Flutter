@@ -83,17 +83,15 @@ class HeatMapContainer extends StatelessWidget {
     Widget? buildDayView() {
       return (showText ?? true) || date.day == 1
           ? (heatmapType == HeatmapCalendarType.widgets
-              ? Stack(
+              ? Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Center(
+                    Align(
+                      alignment: Alignment.topCenter,
                       child: Text(
                         date.day.toString(),
-                        style: TextStyle(
-                            color: textColor ??
-                                ((backgroundImage != null || (selectedColor != null && heatmapType == HeatmapCalendarType.intensity))
-                                    ? const Color(0xFFFFFFFF)
-                                    : const Color(0xFF8A8A8A)),
-                            fontSize: fontSize),
+                        style: TextStyle(color: getTextColor(), fontSize: fontSize),
                       ),
                     ),
                     _widgetsFromData(heatmapData),
@@ -101,12 +99,7 @@ class HeatMapContainer extends StatelessWidget {
                 )
               : Text(
                   date.day.toString(),
-                  style: TextStyle(
-                      color: textColor ??
-                          ((backgroundImage != null || (selectedColor != null && heatmapType == HeatmapCalendarType.intensity))
-                              ? const Color(0xFFFFFFFF)
-                              : const Color(0xFF8A8A8A)),
-                      fontSize: fontSize),
+                  style: TextStyle(color: getTextColor(), fontSize: fontSize),
                 ))
           : null;
     }
@@ -136,6 +129,10 @@ class HeatMapContainer extends StatelessWidget {
     );
   }
 
+  Color getTextColor() {
+    return textColor ?? ((backgroundImage != null || (selectedColor != null && heatmapType == HeatmapCalendarType.intensity)) ? const Color(0xFFFFFFFF) : const Color(0xFF8A8A8A));
+  }
+
   _widgetsFromData(HeatmapData? heatmapData) {
     List<HeatmapChildrenData> heatMapChildren = [];
 
@@ -144,42 +141,41 @@ class HeatMapContainer extends StatelessWidget {
     }
 
     if (heatMapChildren.isNotEmpty) {
-      if (heatMapChildren.length > 2) {
-        return _overlappedUI(heatMapChildren);
-      }
-
-      if (heatMapChildren.length == 1) {
-        return SizedBox(
-          height: 20.0,
-          width: 20.0,
-          child: heatMapChildren[0].child,
-        );
-      }
-
-      return Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [...heatMapChildren.map((childWidget) => childWidget.child).nonNulls.toList()],
-      );
+      return _overlappedUI(heatMapChildren);
     }
 
     return const SizedBox();
   }
 
   Widget _overlappedUI(List<HeatmapChildrenData> heatMapChildren) {
-    const overlap = 10.0;
-    final items = [...heatMapChildren.map((childWidget) => childWidget.child).nonNulls.toList()];
-
-    if (items.isEmpty) {
+    if (heatMapChildren.isEmpty) {
       return const SizedBox();
     }
 
-    List<Widget> stackLayers = List<Widget>.generate(items.length, (index) {
-      return Padding(
-        padding: EdgeInsets.fromLTRB(index.toDouble() * overlap, 0, 0, 0),
-        child: items[index],
+    List<Widget> stackLayers = List<Widget>.generate(heatMapChildren.length, (index) {
+      HeatmapChildrenData childData = heatMapChildren[index];
+      Text childWidget = Text(
+        childData.label,
+        softWrap: false,
+        overflow: TextOverflow.ellipsis,
+        style: const TextStyle(color: Colors.white, fontSize: 8),
+      );
+
+      return Container(
+        margin: const EdgeInsets.symmetric(horizontal: 2),
+        decoration: BoxDecoration(
+          color: childData.color ?? selectedColor,
+          borderRadius: const BorderRadius.all(Radius.circular(2)),
+        ),
+        alignment: Alignment.centerLeft,
+        padding: const EdgeInsets.all(2),
+        child: childWidget,
       );
     });
-    return Stack(children: stackLayers);
+
+    return Column(
+      spacing: 1,
+      children: stackLayers,
+    );
   }
 }

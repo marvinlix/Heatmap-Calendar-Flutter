@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:heatmap_calendar_flutter/heatmap_calendar_flutter.dart';
@@ -24,56 +22,35 @@ class _HeatMapCalendarExample extends State<HeatMapCalendarExample> {
     DateTime(2025, 03, 01): HeatmapData(intensity: 1, heatMapChildren: [
       HeatmapChildrenData(
           label: "label1",
-          desc: "desc1",
-          child: const Icon(
-            Icons.fire_extinguisher,
-            size: 20,
-            color: Colors.red,
+          color: Colors.red,
+          child: const Text(
+            '篮球',
+            softWrap: false,
           )),
     ]),
     DateTime(2025, 03, 05): HeatmapData(intensity: 1, heatMapChildren: [
       HeatmapChildrenData(
-          label: "label1",
-          desc: "desc1",
-          child: const Icon(
-            Icons.fire_extinguisher,
-            size: 20,
-            color: Colors.amber,
-          )),
+        label: "每天100000步",
+        color: Colors.red,
+      ),
       HeatmapChildrenData(
-          label: "label2",
-          desc: "desc2",
-          child: const Icon(
-            Icons.water,
-            size: 20,
-            color: Colors.deepPurple,
-          )),
+        label: "放假了",
+        color: Colors.blue,
+      ),
     ]),
     DateTime(2025, 03, 12): HeatmapData(intensity: 1, heatMapChildren: [
       HeatmapChildrenData(
-          label: "label1",
-          desc: "desc1",
-          child: const Icon(
-            Icons.fire_extinguisher,
-            size: 20,
-            color: Colors.amber,
-          )),
+        label: "加油",
+        color: Colors.amber,
+      ),
       HeatmapChildrenData(
-          label: "label2",
-          desc: "desc2",
-          child: const Icon(
-            Icons.water,
-            size: 20,
-            color: Colors.deepPurple,
-          )),
+        label: "散步",
+        color: Colors.green,
+      ),
       HeatmapChildrenData(
-          label: "label3",
-          desc: "desc3",
-          child: const Icon(
-            Icons.flood,
-            size: 20,
-            color: Colors.blue,
-          )),
+        label: "喝水",
+        color: Colors.indigo,
+      ),
     ]),
   };
 
@@ -109,7 +86,7 @@ class _HeatMapCalendarExample extends State<HeatMapCalendarExample> {
           heatMapDatasets[DateTime.parse(dateController.text)] = HeatmapData(intensity: int.parse(heatLevelController.text), heatMapChildren: [
             HeatmapChildrenData(
                 label: "label1",
-                desc: "desc1",
+                color: Colors.amber,
                 backgroundImage: pickedFile.path,
                 child: const Icon(
                   Icons.fire_extinguisher,
@@ -152,43 +129,10 @@ class _HeatMapCalendarExample extends State<HeatMapCalendarExample> {
                       13: Colors.purple,
                     },
                     showBackgroundImage: true,
-                    heatmapWidgetLegends: [
-                      HeatmapChildrenData(
-                          label: "label1",
-                          desc: "desc1",
-                          child: const Icon(
-                            Icons.fire_extinguisher,
-                            size: 12,
-                            color: Colors.amber,
-                          )),
-                      HeatmapChildrenData(
-                          label: "label2",
-                          desc: "desc2",
-                          child: const Icon(
-                            Icons.water,
-                            size: 12,
-                            color: Colors.deepPurple,
-                          )),
-                      HeatmapChildrenData(
-                          label: "label3",
-                          desc: "desc3",
-                          child: const Icon(
-                            Icons.flood,
-                            size: 12,
-                            color: Colors.blue,
-                          )),
-                      HeatmapChildrenData(
-                          label: "label1",
-                          desc: "desc1",
-                          child: const Icon(
-                            Icons.fire_extinguisher,
-                            size: 12,
-                            color: Colors.amber,
-                          )),
-                    ],
+                    heatmapWidgetLegends: [],
                     defaultColor: Colors.white,
                     onClick: (datetime, heatmapData) {
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('$datetime : $heatmapData')));
+                      print(heatmapData);
                     },
                   ),
                 ),
@@ -208,27 +152,11 @@ class _HeatMapCalendarExample extends State<HeatMapCalendarExample> {
                     heatMapDatasets[DateTime.parse(dateController.text)] = HeatmapData(intensity: int.parse(heatLevelController.text), heatMapChildren: [
                       HeatmapChildrenData(
                           label: "label1",
-                          desc: "desc1",
+                          color: Colors.green,
                           child: const Icon(
                             Icons.fire_extinguisher,
                             size: 12,
                             color: Colors.amber,
-                          )),
-                      HeatmapChildrenData(
-                          label: "label2",
-                          desc: "desc2",
-                          child: const Icon(
-                            Icons.water,
-                            size: 12,
-                            color: Colors.deepPurple,
-                          )),
-                      HeatmapChildrenData(
-                          label: "label3",
-                          desc: "desc3",
-                          child: const Icon(
-                            Icons.flood,
-                            size: 12,
-                            color: Colors.blue,
                           )),
                     ]);
                   });

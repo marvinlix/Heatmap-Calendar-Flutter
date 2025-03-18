@@ -198,6 +198,7 @@ class HeatMapCalendarView extends StatelessWidget {
                 ),
               ),
             ),
+            heatmapType
           ),
       ],
     );

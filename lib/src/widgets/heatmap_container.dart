@@ -81,7 +81,7 @@ class HeatMapContainer extends StatelessWidget {
     }
 
     Widget? buildDayView() {
-      return (showText ?? true) || date.day == 1
+      return (showText ?? true)
           ? (heatmapType == HeatmapCalendarType.widgets
               ? Column(
                   mainAxisAlignment: MainAxisAlignment.start,

@@ -134,8 +134,6 @@ class HeatMapMonthPage extends StatelessWidget {
         lastDate = endDate;
       }
 
-      print('$firstDate, $lastDate');
-
       columns.add(HeatMapMonthColumn(
         // If last day is not saturday, week also includes future Date.
         // So we have to make future day on last column blanck.

@@ -158,7 +158,7 @@ class HeatMapMonthColumn extends StatelessWidget {
             ),
           ),
         ),
-        for (Widget container in dayContainers) WidgetUtil.flexibleContainer(flexible ?? false, true, container, 0.7),
+        for (Widget container in dayContainers) WidgetUtil.flexibleContainer(flexible ?? false, true, container, 0.6),
       ],
     );
   }

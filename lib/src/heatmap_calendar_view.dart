@@ -220,6 +220,7 @@ class HeatMapCalendarView extends StatelessWidget {
             _header(),
           _weekLabel(),
           HeatMapCalendarPage(
+            locale: locale,
             baseDate: _currentDate ?? DateTime.now(),
             colorMode: colorMode,
             heatmapType: heatmapType,

@@ -72,6 +72,8 @@ class HeatMapCalendarPage extends StatelessWidget {
 
   final bool? showBackgroundImage;
 
+  final HeatmapLocaleType locale;
+
   HeatMapCalendarPage({
     Key? key,
     required this.baseDate,
@@ -88,6 +90,7 @@ class HeatMapCalendarPage extends StatelessWidget {
     this.borderRadius,
     this.onClick,
     this.showBackgroundImage = false,
+    this.locale = HeatmapLocaleType.en,
   })  : separatedDate = DateUtil.separatedMonth(baseDate),
         maxValue = DatasetsUtil.getMaxValue(
             DatasetsUtil.filterMonth(datasets, baseDate)),
@@ -100,6 +103,7 @@ class HeatMapCalendarPage extends StatelessWidget {
       children: <Widget>[
         for (var date in separatedDate)
           HeatMapCalendarRow(
+            locale: locale,
             startDate: date.keys.first,
             endDate: date.values.first,
             colorMode: colorMode,

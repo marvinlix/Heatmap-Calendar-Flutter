@@ -71,6 +71,7 @@ class HeatMapCalendarRow extends StatelessWidget {
   final int? maxValue;
   final bool? showBackgroundImage;
 
+  final HeatmapLocaleType locale;
   /// Function that will be called when a block is clicked.
   ///
   /// Paratmeter gives clicked [DateTime] value.
@@ -94,6 +95,7 @@ class HeatMapCalendarRow extends StatelessWidget {
     this.maxValue,
     this.onClick,
     this.showBackgroundImage = false,
+    this.locale = HeatmapLocaleType.en
   })  : dayContainers = List<Widget>.generate(
           7,
           // If current week has first day of the month and
@@ -115,6 +117,7 @@ class HeatMapCalendarRow extends StatelessWidget {
                 )
               // If the day is not a empty one then create HeatMapContainer.
               : HeatMapContainer(
+                  locale: locale,
                   // Given information about the week is that
                   // start day of week value and end day of week.
                   //

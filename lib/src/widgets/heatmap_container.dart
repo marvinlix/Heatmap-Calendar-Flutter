@@ -19,7 +19,7 @@ class HeatMapContainer extends StatelessWidget {
   final bool? showText;
   final bool? showBackgroundImage;
   final Function(DateTime dateTime, HeatmapData heatmapData)? onClick;
-
+  final HeatmapLocaleType locale;
   final String? backgroundImage;
 
   HeatMapContainer({
@@ -37,6 +37,7 @@ class HeatMapContainer extends StatelessWidget {
     this.onClick,
     this.showText,
     this.showBackgroundImage = false,
+    this.locale = HeatmapLocaleType.en
   })  : backgroundImage = findFirstNonNullImagePath(heatmapData, showBackgroundImage),
         super(key: key);
 
@@ -141,6 +142,13 @@ class HeatMapContainer extends StatelessWidget {
     }
 
     if (heatMapChildren.isNotEmpty) {
+      List<HeatmapChildrenData>? newHeatMapChildren = [];
+      if (heatMapChildren.length > 3) {
+        newHeatMapChildren = heatMapChildren.take(2).toList();
+        HeatmapChildrenData more = HeatmapChildrenData(label: i18nObjInLocaleLookupString(locale, 'moreItem'), color: Colors.blue);
+        newHeatMapChildren.add(more);
+      }
+
       return _overlappedUI(heatMapChildren);
     }
 

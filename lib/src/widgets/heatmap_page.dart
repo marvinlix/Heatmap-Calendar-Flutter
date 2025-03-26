@@ -160,6 +160,7 @@ class HeatMapPage extends StatelessWidget {
         datasets: datasets,
         showText: showText,
         showBackgroundImage: showBackgroundImage,
+        locale: locale,
       ));
 
       _firstDayInfos.add(weekEnd.month);

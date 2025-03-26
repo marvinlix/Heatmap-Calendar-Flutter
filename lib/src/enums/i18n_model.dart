@@ -6,14 +6,16 @@ final _i18nModel = <HeatmapLocaleType, Map<String, Object>>{
     'monthLong': ['', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
     'weekLabel': ['', 'Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'],
     'more': 'more',
-    'less': 'less'
+    'less': 'less',
+    'moreItem': 'More',
   },
   HeatmapLocaleType.zh: {
     'monthLong': ['', '一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
     'monthShort': ['', '1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
     'weekLabel': ['', '周日', '周一', '周二', '周三', '周四', '周五', '周六'],
     'more': '多',
-    'less': '少'
+    'less': '少',
+    'moreItem': '更多',
   },
 };
 

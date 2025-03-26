@@ -114,6 +114,7 @@ class HeatMapMonthColumn extends StatelessWidget {
                 )
               // If the day is not a empty one then create HeatMapContainer.
               : HeatMapContainer(
+                  locale: locale,
                   // Given information about the week is that
                   // start day of week value and end day of week.
                   //

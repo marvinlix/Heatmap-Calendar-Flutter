@@ -147,9 +147,10 @@ class HeatMapContainer extends StatelessWidget {
         newHeatMapChildren = heatMapChildren.take(2).toList();
         HeatmapChildrenData more = HeatmapChildrenData(label: i18nObjInLocaleLookupString(locale, 'moreItem'), color: Colors.blue);
         newHeatMapChildren.add(more);
+        return _overlappedUI(newHeatMapChildren);
+      } else {
+        return _overlappedUI(heatMapChildren);
       }
-
-      return _overlappedUI(newHeatMapChildren);
     }
 
     return const SizedBox();

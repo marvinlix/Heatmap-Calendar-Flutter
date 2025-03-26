@@ -149,7 +149,7 @@ class HeatMapContainer extends StatelessWidget {
         newHeatMapChildren.add(more);
       }
 
-      return _overlappedUI(heatMapChildren);
+      return _overlappedUI(newHeatMapChildren);
     }
 
     return const SizedBox();

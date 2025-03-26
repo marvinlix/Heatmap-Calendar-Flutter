@@ -182,7 +182,7 @@ class HeatMapCalendarRow extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         for (Widget container in dayContainers)
-          WidgetUtil.flexibleContainer(flexible ?? false, true, container, heatmapType == HeatmapCalendarType.intensity ? 1 : 0.7),
+          WidgetUtil.flexibleContainer(flexible ?? false, true, container, heatmapType == HeatmapCalendarType.intensity ? 1 : 0.65),
       ],
     );
   }

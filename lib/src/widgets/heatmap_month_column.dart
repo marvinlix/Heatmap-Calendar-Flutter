@@ -147,7 +147,7 @@ class HeatMapMonthColumn extends StatelessWidget {
       mainAxisSize: MainAxisSize.max,
       children: <Widget>[
         Container(
-          width: size ?? 20,
+          width: size ?? 25,
           margin: margin ?? const EdgeInsets.all(2.0),
           child: Center(
             child: Text(

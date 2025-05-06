@@ -166,7 +166,7 @@ class HeatMapContainer extends StatelessWidget {
         childData.label,
         softWrap: false,
         overflow: TextOverflow.ellipsis,
-        style: const TextStyle(color: Colors.white, fontSize: 7),
+        style: const TextStyle(color: Colors.white, fontSize: 9),
       );
 
       return Container(

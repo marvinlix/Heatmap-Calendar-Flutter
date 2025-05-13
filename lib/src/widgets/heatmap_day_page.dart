@@ -84,7 +84,7 @@ class HeatMapDayPage extends StatelessWidget {
 
   /// The text color value of week labels.
   final Color? monthTextColor;
-
+  final bool? showText;
   final HeatmapLocaleType locale;
 
   HeatMapDayPage({
@@ -105,6 +105,7 @@ class HeatMapDayPage extends StatelessWidget {
     this.monthFontSize,
     this.monthTextColor,
     this.lineCount,
+    this.showText = false,
     this.locale = HeatmapLocaleType.en,
   })  : maxValue = DatasetsUtil.getMaxValue(datasets),
         super(key: key);
@@ -142,6 +143,7 @@ class HeatMapDayPage extends StatelessWidget {
         locale: locale,
         lineCount: lineCount ?? 7,
         aspectRatio: 1.0,
+        showText: showText,
       ));
       firstDate = DateTime(lastDate.year, lastDate.month, lastDate.day + 1);
     }

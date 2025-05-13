@@ -100,6 +100,7 @@ class HeatMapDayView extends StatelessWidget {
   final int? colorTipCount;
 
   final int? lineCount;
+  final bool? showText;
 
   /// The double value of [HeatMapColorTip]'s tip container's size.
   final double? colorTipSize;
@@ -130,6 +131,7 @@ class HeatMapDayView extends StatelessWidget {
       this.colorTipSize,
       this.weekFontSize,
       this.weekTextColor,
+      this.showText = false,
       this.locale = HeatmapLocaleType.en})
       : super(key: key);
 
@@ -154,6 +156,7 @@ class HeatMapDayView extends StatelessWidget {
           margin: margin,
           lineCount: lineCount,
           locale: locale,
+          showText: showText,
         ),
         // Show HeatMapColorTip if showColorTip is true.
         if (showColorTip == true)

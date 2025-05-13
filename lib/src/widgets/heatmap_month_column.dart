@@ -81,7 +81,7 @@ class HeatMapMonthColumn extends StatelessWidget {
 
   final int lineCount;
   final double? aspectRatio;
-
+  final bool? showText;
   /// Function that will be called when a block is clicked.
   ///
   /// Paratmeter gives clicked [DateTime] value.
@@ -109,6 +109,7 @@ class HeatMapMonthColumn extends StatelessWidget {
     this.showMonthLabel = true,
     this.lineCount = 31,
     this.aspectRatio = 0.6,
+    this.showText = false,
     this.locale = HeatmapLocaleType.en})
       : dayContainers = List<Widget>.generate(
     lineCount,
@@ -135,7 +136,7 @@ class HeatMapMonthColumn extends StatelessWidget {
       borderRadius: borderRadius,
       margin: margin,
       onClick: onClick,
-      showText: false,
+      showText: showText,
       showBackgroundImage: showBackgroundImage,
       selectedColor: datasets?.keys.contains(DateTime(startDate.year, startDate.month, startDate.day + i)) ?? false
           ? colorMode == ColorMode.opacity

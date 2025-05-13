@@ -108,36 +108,37 @@ class HeatMapMonthView extends StatelessWidget {
   /// The double value of [HeatMapColorTip]'s tip container's size.
   final double? colorTipSize;
   final double? aspectRatio;
+  final bool? showMonthLabel;
 
   final HeatmapLocaleType locale;
 
-  const HeatMapMonthView(
-      {Key? key,
-      required this.colorsets,
-      this.colorMode = ColorMode.opacity,
-      this.heatmapType = HeatmapCalendarType.intensity,
-      this.heatmapWidgetLegends,
-      this.startDate,
-      this.endDate,
-      this.textColor,
-      this.size,
-      this.fontSize = 10,
-      this.onClick,
-      this.margin,
-      this.borderRadius,
-      this.datasets,
-      this.defaultColor,
-      this.showText = false,
-      this.showBackgroundImage = false,
-      this.showColorTip = false,
-      this.scrollable = false,
-      this.colorTipHelper,
-      this.colorTipCount,
-      this.colorTipSize,
-      this.weekFontSize,
-      this.weekTextColor,
-      this.aspectRatio,
-      this.locale = HeatmapLocaleType.en})
+  const HeatMapMonthView({Key? key,
+    required this.colorsets,
+    this.colorMode = ColorMode.opacity,
+    this.heatmapType = HeatmapCalendarType.intensity,
+    this.heatmapWidgetLegends,
+    this.startDate,
+    this.endDate,
+    this.textColor,
+    this.size,
+    this.fontSize = 10,
+    this.onClick,
+    this.margin,
+    this.borderRadius,
+    this.datasets,
+    this.defaultColor,
+    this.showText = false,
+    this.showBackgroundImage = false,
+    this.showColorTip = false,
+    this.scrollable = false,
+    this.colorTipHelper,
+    this.colorTipCount,
+    this.colorTipSize,
+    this.weekFontSize,
+    this.weekTextColor,
+    this.aspectRatio,
+    this.showMonthLabel,
+    this.locale = HeatmapLocaleType.en})
       : super(key: key);
 
   @override
@@ -163,6 +164,7 @@ class HeatMapMonthView extends StatelessWidget {
           showBackgroundImage: showBackgroundImage,
           locale: locale,
           aspectRatio: aspectRatio,
+          showMonthLabel: showMonthLabel ?? true,
         ),
         // Show HeatMapColorTip if showColorTip is true.
         if (showColorTip == true)

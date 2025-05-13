@@ -95,31 +95,33 @@ class HeatMapMonthPage extends StatelessWidget {
 
   /// The text color value of week labels.
   final Color? monthTextColor;
-
+  final bool showMonthLabel;
   final HeatmapLocaleType locale;
 
-  HeatMapMonthPage(
-      {Key? key,
-      required this.colorMode,
-      required this.heatmapType,
-      required this.startDate,
-      required this.endDate,
-      this.size,
-      this.fontSize,
-      this.datasets,
-      this.defaultColor,
-      this.textColor,
-      this.colorsets,
-      this.borderRadius,
-      this.onClick,
-      this.margin,
-      this.showText,
-      this.showBackgroundImage = false,
-      this.monthFontSize,
-      this.monthTextColor,
-      this.aspectRatio,
-      this.locale = HeatmapLocaleType.en})
-      : _dateDifferent = endDate.difference(startDate).inDays,
+  HeatMapMonthPage({Key? key,
+    required this.colorMode,
+    required this.heatmapType,
+    required this.startDate,
+    required this.endDate,
+    this.size,
+    this.fontSize,
+    this.datasets,
+    this.defaultColor,
+    this.textColor,
+    this.colorsets,
+    this.borderRadius,
+    this.onClick,
+    this.margin,
+    this.showText,
+    this.showBackgroundImage = false,
+    this.monthFontSize,
+    this.monthTextColor,
+    this.aspectRatio,
+    this.showMonthLabel = true,
+    this.locale = HeatmapLocaleType.en})
+      : _dateDifferent = endDate
+      .difference(startDate)
+      .inDays,
         maxValue = DatasetsUtil.getMaxValue(datasets),
         super(key: key);
 
@@ -158,6 +160,7 @@ class HeatMapMonthPage extends StatelessWidget {
         datasets: datasets,
         flexible: true,
         aspectRatio: aspectRatio,
+        showMonthLabel: showMonthLabel,
         showBackgroundImage: showBackgroundImage,
         locale: locale,
         lineCount: 31,

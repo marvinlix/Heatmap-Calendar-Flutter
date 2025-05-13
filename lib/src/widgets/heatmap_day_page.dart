@@ -12,15 +12,7 @@ import '../utils/date_util.dart';
 import './heatmap_week_text.dart';
 import 'heatmap_month_column.dart';
 
-class HeatMapMonthPage extends StatelessWidget {
-  /// List value of every sunday's month information.
-  ///
-  /// From 1: January to 12: December.
-  final List<int> _firstDayInfos = [];
-
-  /// The number of days between [startDate] and [endDate].
-  final int _dateDifferent;
-
+class HeatMapDayPage extends StatelessWidget {
   /// The Date value of start day of heatmap.
   ///
   /// HeatMap shows the start day of [startDate]'s week.
@@ -80,14 +72,12 @@ class HeatMapMonthPage extends StatelessWidget {
   ///
   /// Get highest key value of filtered datasets using [DatasetsUtil.getMaxValue].
   final int? maxValue;
+  final int? lineCount;
 
   /// Function that will be called when a block is clicked.
   ///
   /// Paratmeter gives clicked [DateTime] value.
   final Function(DateTime, HeatmapData)? onClick;
-
-  final bool? showText;
-  final bool? showBackgroundImage;
 
   /// The double value of week label's fontSize.
   final double? monthFontSize;
@@ -97,28 +87,26 @@ class HeatMapMonthPage extends StatelessWidget {
 
   final HeatmapLocaleType locale;
 
-  HeatMapMonthPage(
-      {Key? key,
-      required this.colorMode,
-      required this.heatmapType,
-      required this.startDate,
-      required this.endDate,
-      this.size,
-      this.fontSize,
-      this.datasets,
-      this.defaultColor,
-      this.textColor,
-      this.colorsets,
-      this.borderRadius,
-      this.onClick,
-      this.margin,
-      this.showText,
-      this.showBackgroundImage = false,
-      this.monthFontSize,
-      this.monthTextColor,
-      this.locale = HeatmapLocaleType.en})
-      : _dateDifferent = endDate.difference(startDate).inDays,
-        maxValue = DatasetsUtil.getMaxValue(datasets),
+  HeatMapDayPage({
+    Key? key,
+    required this.colorMode,
+    required this.heatmapType,
+    required this.startDate,
+    required this.endDate,
+    this.size,
+    this.fontSize,
+    this.datasets,
+    this.defaultColor,
+    this.textColor,
+    this.colorsets,
+    this.borderRadius,
+    this.onClick,
+    this.margin,
+    this.monthFontSize,
+    this.monthTextColor,
+    this.lineCount,
+    this.locale = HeatmapLocaleType.en,
+  })  : maxValue = DatasetsUtil.getMaxValue(datasets),
         super(key: key);
 
   /// Get [HeatMapColumn] from [startDate] to [endDate].
@@ -129,17 +117,12 @@ class HeatMapMonthPage extends StatelessWidget {
     DateTime firstDate = startDate;
 
     while (firstDate.isBefore(endDate)) {
-      DateTime lastDate = DateUtil.endDayOfMonth(firstDate);
+      DateTime lastDate = DateUtil.changeDay(firstDate, lineCount ?? 7);
       if (lastDate.isAfter(endDate)) {
         lastDate = endDate;
       }
 
       columns.add(HeatMapMonthColumn(
-        // If last day is not saturday, week also includes future Date.
-        // So we have to make future day on last column blanck.
-        //
-        // To make empty space to future day, we have to pass this HeatMapPage's
-        // endDate to HeatMapColumn's endDate.
         startDate: DateTime(firstDate.year, firstDate.month, firstDate.day),
         endDate: DateTime(lastDate.year, lastDate.month, lastDate.day),
         colorMode: colorMode,
@@ -155,10 +138,14 @@ class HeatMapMonthPage extends StatelessWidget {
         onClick: onClick,
         datasets: datasets,
         flexible: true,
-        showBackgroundImage: showBackgroundImage,
+        showBackgroundImage: false,
+        showMonthLabel: false,
         locale: locale,
-        lineCount: 31,
+        lineCount: lineCount ?? 7,
+        aspectRatio: 1.0,
       ));
+
+      print('$firstDate, $lastDate');
 
       firstDate = DateTime(lastDate.year, lastDate.month, lastDate.day + 1);
     }

@@ -76,68 +76,75 @@ class HeatMapMonthColumn extends StatelessWidget {
   /// The integer value of the maximum value for the highest value of the month.
   final int? maxValue;
   final bool? showBackgroundImage;
+  final bool showMonthLabel;
   final HeatmapLocaleType locale;
+
+  final int lineCount;
+  final double? aspectRatio;
 
   /// Function that will be called when a block is clicked.
   ///
   /// Paratmeter gives clicked [DateTime] value.
   final Function(DateTime, HeatmapData)? onClick;
 
-  HeatMapMonthColumn(
-      {Key? key,
-      required this.startDate,
-      required this.endDate,
-      required this.colorMode,
-      required this.heatmapType,
-      this.size,
-      this.fontSize,
-      this.defaultColor,
-      this.colorsets,
-      this.textColor,
-      this.borderRadius,
-      this.flexible,
-      this.margin,
-      this.datasets,
-      this.maxValue,
-      this.onClick,
-      this.weekFontSize,
-      this.weekTextColor,
-      this.showBackgroundImage = false,
-      this.locale = HeatmapLocaleType.en})
+  HeatMapMonthColumn({Key? key,
+    required this.startDate,
+    required this.endDate,
+    required this.colorMode,
+    required this.heatmapType,
+    this.size,
+    this.fontSize,
+    this.defaultColor,
+    this.colorsets,
+    this.textColor,
+    this.borderRadius,
+    this.flexible,
+    this.margin,
+    this.datasets,
+    this.maxValue,
+    this.onClick,
+    this.weekFontSize,
+    this.weekTextColor,
+    this.showBackgroundImage = false,
+    this.showMonthLabel = true,
+    this.lineCount = 31,
+    this.aspectRatio = 0.6,
+    this.locale = HeatmapLocaleType.en})
       : dayContainers = List<Widget>.generate(
-          31,
-          (i) => DateTime(startDate.year, startDate.month, startDate.day + i).isAfter(endDate) || DateTime(startDate.year, startDate.month, startDate.day + i).isBefore(startDate)
-              ? Container(
-                  width: size,
-                  height: size,
-                  margin: margin ?? const EdgeInsets.all(2),
-                )
-              // If the day is not a empty one then create HeatMapContainer.
-              : HeatMapContainer(
-                  locale: locale,
-                  // Given information about the week is that
-                  // start day of week value and end day of week.
-                  //
-                  // So we have to give every day information to each HeatMapContainer.
-                  date: DateTime(startDate.year, startDate.month, startDate.day + i),
-                  backgroundColor: defaultColor,
-                  heatmapType: heatmapType,
-                  size: size,
-                  fontSize: fontSize,
-                  textColor: textColor,
-                  borderRadius: borderRadius,
-                  margin: margin,
-                  onClick: onClick,
-                  showText: false,
-                  showBackgroundImage: showBackgroundImage,
-                  selectedColor: datasets?.keys.contains(DateTime(startDate.year, startDate.month, startDate.day + i)) ?? false
-                      ? colorMode == ColorMode.opacity
-                          ? colorsets?.values.first.withOpacity((datasets?[DateTime(startDate.year, startDate.month, startDate.day + i)]?.intensity ?? 1) / (maxValue ?? 1))
-                          : DatasetsUtil.getColor(colorsets, datasets?[DateTime(startDate.year, startDate.month, startDate.day + i)]?.intensity)
-                      : null,
-                  heatmapData: datasets![DateTime(startDate.year, startDate.month, startDate.day + i)],
-                ),
-        ),
+    lineCount,
+        (i) =>
+    DateTime(startDate.year, startDate.month, startDate.day + i).isAfter(endDate) || DateTime(startDate.year, startDate.month, startDate.day + i).isBefore(startDate)
+        ? Container(
+      width: size,
+      height: size,
+      margin: margin ?? const EdgeInsets.all(1),
+    )
+    // If the day is not a empty one then create HeatMapContainer.
+        : HeatMapContainer(
+      locale: locale,
+      // Given information about the week is that
+      // start day of week value and end day of week.
+      //
+      // So we have to give every day information to each HeatMapContainer.
+      date: DateTime(startDate.year, startDate.month, startDate.day + i),
+      backgroundColor: defaultColor,
+      heatmapType: heatmapType,
+      size: size,
+      fontSize: fontSize,
+      textColor: textColor,
+      borderRadius: borderRadius,
+      margin: margin,
+      onClick: onClick,
+      showText: false,
+      showBackgroundImage: showBackgroundImage,
+      selectedColor: datasets?.keys.contains(DateTime(startDate.year, startDate.month, startDate.day + i)) ?? false
+          ? colorMode == ColorMode.opacity
+          ? colorsets?.values.first.withOpacity((datasets?[DateTime(startDate.year, startDate.month, startDate.day + i)]?.intensity ?? 1) / (maxValue ?? 1))
+          : DatasetsUtil.getColor(colorsets, datasets?[DateTime(startDate.year, startDate.month, startDate.day + i)]?.intensity)
+          : null,
+      heatmapData: datasets![DateTime(startDate.year, startDate.month, startDate.day + i)],
+    ),
+  ),
         super(key: key);
 
   @override
@@ -146,20 +153,21 @@ class HeatMapMonthColumn extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       mainAxisSize: MainAxisSize.max,
       children: <Widget>[
-        Container(
-          width: size ?? 25,
-          margin: margin ?? const EdgeInsets.all(2.0),
-          child: Center(
-            child: Text(
-              shortMonthLabelInLocale(locale)[startDate.month],
-              style: TextStyle(
-                fontSize: weekFontSize ?? 9,
-                color: weekTextColor ?? const Color(0xFF758EA1),
+        if (showMonthLabel)
+          Container(
+            width: size ?? 25,
+            margin: margin ?? const EdgeInsets.all(1.0),
+            child: Center(
+              child: Text(
+                shortMonthLabelInLocale(locale)[startDate.month],
+                style: TextStyle(
+                  fontSize: weekFontSize ?? 9,
+                  color: weekTextColor ?? const Color(0xFF758EA1),
+                ),
               ),
             ),
           ),
-        ),
-        for (Widget container in dayContainers) WidgetUtil.flexibleContainer(flexible ?? false, true, container, 0.6),
+        for (Widget container in dayContainers) WidgetUtil.flexibleContainer(flexible ?? false, true, container, aspectRatio),
       ],
     );
   }

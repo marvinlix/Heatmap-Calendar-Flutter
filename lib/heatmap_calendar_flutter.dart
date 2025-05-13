@@ -2,6 +2,7 @@ library heatmap_calendar_flutter;
 
 export 'src/heatmap.dart';
 export 'src/heatmap_view.dart';
+export 'src/heatmap_day_view.dart';
 export 'src/heatmap_month_view.dart';
 export 'src/heatmap_calendar.dart';
 export 'src/heatmap_calendar_view.dart';

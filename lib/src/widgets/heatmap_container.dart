@@ -105,12 +105,12 @@ class HeatMapContainer extends StatelessWidget {
     }
 
     return Padding(
-      padding: margin ?? const EdgeInsets.all(2),
+      padding: margin ?? const EdgeInsets.all(1),
       child: GestureDetector(
         child: Container(
           decoration: BoxDecoration(
             color: backgroundColor ?? HeatMapColor.defaultColor,
-            borderRadius: BorderRadius.all(Radius.circular(borderRadius ?? 5)),
+            borderRadius: BorderRadius.all(Radius.circular(borderRadius ?? 3)),
           ),
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 200),

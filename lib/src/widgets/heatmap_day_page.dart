@@ -115,9 +115,8 @@ class HeatMapDayPage extends StatelessWidget {
     List<Widget> columns = [];
 
     DateTime firstDate = startDate;
-
     while (firstDate.isBefore(endDate)) {
-      DateTime lastDate = DateUtil.changeDay(firstDate, lineCount ?? 7);
+      DateTime lastDate = DateUtil.changeDay(firstDate, (lineCount ?? 7) - 1);
       if (lastDate.isAfter(endDate)) {
         lastDate = endDate;
       }
@@ -144,9 +143,6 @@ class HeatMapDayPage extends StatelessWidget {
         lineCount: lineCount ?? 7,
         aspectRatio: 1.0,
       ));
-
-      print('$firstDate, $lastDate');
-
       firstDate = DateTime(lastDate.year, lastDate.month, lastDate.day + 1);
     }
 

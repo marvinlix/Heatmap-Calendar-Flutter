@@ -107,6 +107,7 @@ class HeatMapMonthView extends StatelessWidget {
 
   /// The double value of [HeatMapColorTip]'s tip container's size.
   final double? colorTipSize;
+  final double? aspectRatio;
 
   final HeatmapLocaleType locale;
 
@@ -135,6 +136,7 @@ class HeatMapMonthView extends StatelessWidget {
       this.colorTipSize,
       this.weekFontSize,
       this.weekTextColor,
+      this.aspectRatio,
       this.locale = HeatmapLocaleType.en})
       : super(key: key);
 
@@ -160,6 +162,7 @@ class HeatMapMonthView extends StatelessWidget {
           showText: showText,
           showBackgroundImage: showBackgroundImage,
           locale: locale,
+          aspectRatio: aspectRatio,
         ),
         // Show HeatMapColorTip if showColorTip is true.
         if (showColorTip == true)

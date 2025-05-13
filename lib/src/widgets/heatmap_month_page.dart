@@ -80,6 +80,7 @@ class HeatMapMonthPage extends StatelessWidget {
   ///
   /// Get highest key value of filtered datasets using [DatasetsUtil.getMaxValue].
   final int? maxValue;
+  final double? aspectRatio;
 
   /// Function that will be called when a block is clicked.
   ///
@@ -116,6 +117,7 @@ class HeatMapMonthPage extends StatelessWidget {
       this.showBackgroundImage = false,
       this.monthFontSize,
       this.monthTextColor,
+      this.aspectRatio,
       this.locale = HeatmapLocaleType.en})
       : _dateDifferent = endDate.difference(startDate).inDays,
         maxValue = DatasetsUtil.getMaxValue(datasets),
@@ -155,6 +157,7 @@ class HeatMapMonthPage extends StatelessWidget {
         onClick: onClick,
         datasets: datasets,
         flexible: true,
+        aspectRatio: aspectRatio,
         showBackgroundImage: showBackgroundImage,
         locale: locale,
         lineCount: 31,

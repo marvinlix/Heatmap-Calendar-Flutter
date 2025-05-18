@@ -142,7 +142,7 @@ class HeatMapContainer extends StatelessWidget {
 
     if (heatMapChildren.isNotEmpty) {
       List<HeatmapChildrenData>? newHeatMapChildren = [];
-      if (heatMapChildren.length > 3) {
+      if (heatMapChildren.length > 4) {
         newHeatMapChildren = heatMapChildren.take(2).toList();
         HeatmapChildrenData more = HeatmapChildrenData(label: i18nObjInLocaleLookupString(locale, 'moreItem'), color: Colors.blue);
         newHeatMapChildren.add(more);
